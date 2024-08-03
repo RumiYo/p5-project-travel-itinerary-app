@@ -3,11 +3,11 @@ from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm import validates
 from sqlalchemy.ext.hybrid import hybrid_property
 
-from config import db
+from config import db, bcrypt
 
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
-    serialize_rules = ('-initeraries.user', '-reviews.user')
+    serialize_rules = ('-itineraries.user', '-reviews.user')
 
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String, nullable=False)
@@ -16,7 +16,7 @@ class User(db.Model, SerializerMixin):
     email = db.Column(db.String, nullable=False, unique=True)
     _password_hash = db.Column(db.String, nullable=False)
 
-    initeraries = db.relationship('Initerary', back_populates='user')
+    itineraries = db.relationship('Itinerary', back_populates='user')
     reviews = db.relationship('Review', back_populates='user')
 
     @validates('email')
@@ -58,7 +58,7 @@ class User(db.Model, SerializerMixin):
 
 class Itinerary(db.Model, SerializerMixin):
     __tablename__ = 'itineraries'
-    serialize_rules = ('-user.initeraries', '-activities.itinerary', '-activities.destination', '-destinations.itineraries', '-destinations.activities')
+    serialize_rules = ('-user.itineraries', '-activities.itinerary', '-activities.destination', '-destinations.itineraries', '-destinations.activities')
 
     id = db.Column(db.Integer, primary_key=True)
     itinerary_name = db.Column(db.String, nullable=False)
@@ -66,9 +66,9 @@ class Itinerary(db.Model, SerializerMixin):
     end_date = db.Column(db.DateTime)
     user_id =  db.Column(db.Integer, db.ForeignKey('users.id'))
     
-    user = db.relationship('User', back_populates='initeraries')
-    activities = db.relationship('Activity', back_populates='user')
-    destionations = association_proxy('activities', 'destination', creator=lambda project_obj: Activity(project=project_obj))
+    user = db.relationship('User', back_populates='itineraries')
+    activities = db.relationship('Activity', back_populates='itinerary')
+    destinations = association_proxy('activities', 'destination', creator=lambda project_obj: Activity(project=project_obj))
 
     @validates('itinerary_name')
     def validate_name(self, key, name):
@@ -112,7 +112,7 @@ class Activity(db.Model, SerializerMixin):
     itinerary_id = db.Column(db.Integer, db.ForeignKey('itineraries.id'))
     destination_id = db.Column(db.Integer, db.ForeignKey('destinations.id'))
 
-    itinerary = db.relationship('Initerary', back_populates='activities')
+    itinerary = db.relationship('Itinerary', back_populates='activities')
     destination = db.relationship('Destination', back_populates='activities')
 
     @validates('activity_name')
