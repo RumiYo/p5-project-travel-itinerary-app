@@ -36,7 +36,6 @@ class Signups(Resource):
         new_record.password_hash = json_data.get('password_hash')
         db.session.add(new_record)
         db.session.commit()
-        print(new_record.to_dict())
 
         if not new_record.id:
             return {'error': 'validation errors'}, 400
@@ -108,12 +107,231 @@ class UserById(Resource):
         db.session.delete(user)
         db.session.commit()
 
+class Itineraries(Resource):
+    def get(self):
+        itineraries = Itinerary.query.all()
+        itineraries_dict = [itinerary.to_dict() for itinerary in itineraries]
+        return make_response(itineraries_dict, 200)     
+
+    def post(self):
+        json_data = request.get_json()
+        if not json_data.get('itinerary_name') or not json_data.get('user_id'):
+            return {"error": "Itinerary name and userID cannot be empty"}, 422 
+        new_record = Itinerary(
+            itinerary_name=json_data.get('itinerary_name'),
+            start_date=json_data.get('start_date'),
+            end_date=json_data.get('end_date'),
+            user_id=json_data.get('user_id'),
+        )
+        db.session.add(new_record)
+        db.session.commit()
+
+        if not new_record.id:
+            return {'error': 'validation errors'}, 400
+        session['user_id'] = new_record.id
+        return make_response(new_record.to_dict(), 201)
+
+
+class ItineraryById(Resource):
+    def get(self,id):
+        itinerary = Itinerary.query.filter(Itinerary.id==id).first()
+        if not itinerary: 
+            return {'error': 'Itinerary not found'}, 404
+        return make_response(itinerary.to_dict(), 200)
+
+    def patch(self,id):
+        itinerary = Itinerary.query.filter(Itinerary.id==id).first()
+        if not itinerary: 
+            return {'error': 'Itinerary not found'}, 404
+
+        json_data = request.get_json()
+        for key, value in json_data.items():
+            if hasattr(itinerary, key):
+                setattr(itinerary, key, value)
+            else:
+                return {'error': f'Invalid field: {key}'}, 400
+        
+        db.session.commit()
+        return make_response(itinerary.to_dict(), 200)
+
+    def delete(self,id):
+        itinerary = Itinerary.query.filter(Itinerary.id==id).first()
+        if not itinerary: 
+            return {'error': 'Itinerary not found'}, 404
+        db.session.delete(itinerary)
+        db.session.commit()     
+   
+
+class Destinations(Resource):
+    def get(self):
+        destinations = Destination.query.all()
+        destinations_dict = [destination.to_dict() for destination in destinations]
+        return make_response(destinations_dict, 200)  
+
+    def post(self):
+        json_data = request.get_json()
+        if not json_data.get('city') or not json_data.get('country'):
+            return {"error": "City and Country cannot be empty"}, 422 
+        duplicate_city = Destination.query.filter(Destination.city==json_data['city']).first()
+        if duplicate_city:
+            return {"error": "This city already exists."}, 422
+        new_record = Destination(
+            city=json_data.get('city'),
+            country=json_data.get('country'),
+            destination_description=json_data.get('destination_description'),
+        )
+        db.session.add(new_record)
+        db.session.commit()
+
+        if not new_record.id:
+            return {'error': 'validation errors'}, 400
+        session['user_id'] = new_record.id
+        return make_response(new_record.to_dict(), 201)    
+
+class DestinationById(Resource):
+    def get(self,id):
+        destination = Destination.query.filter(Destination.id==id).first()
+        if not destination: 
+            return {'error': 'Destination not found'}, 404
+        return make_response(destination.to_dict(), 200)
+
+    def patch(self,id):
+        destination = Destination.query.filter(Destination.id==id).first()
+        if not destination: 
+            return {'error': 'Destination not found'}, 404
+
+        json_data = request.get_json()
+        for key, value in json_data.items():
+            if hasattr(destination, key):
+                setattr(destination, key, value)
+            else:
+                return {'error': f'Invalid field: {key}'}, 400
+        
+        db.session.commit()
+        return make_response(destination.to_dict(), 200)
+
+    def delete(self,id):
+        destination = Destination.query.filter(Destination.id==id).first()
+        if not destination: 
+            return {'error': 'Destination not found'}, 404
+        db.session.delete(destination)
+        db.session.commit()       
+
+class Activities(Resource): 
+    def get(self):
+        activities = Activity.query.all()
+        activities_dict = [activity.to_dict() for activity in activities]
+        return make_response(activities_dict, 200)        
+
+    def post(self):
+        json_data = request.get_json()
+        if not json_data.get('activity_name') or not json_data.get('activity_description') or not json_data.get('destination_id'):
+            return {"error": "Activity Name, Description and city name cannot be empty"}, 422 
+        new_record = Activity(
+            activity_name=json_data.get('activity_name'),
+            date=json_data.get('date'),
+            activity_description=json_data.get('activity_description'),
+            itinerary_id=json_data.get('itinerary_id'),
+            destination_id=json_data.get('destination_id'),
+        )
+        db.session.add(new_record)
+        db.session.commit()
+
+
+class ActivityById(Resource):
+    def get(self,id):
+        activity = Activity.query.filter(Activity.id==id).first()
+        if not activity: 
+            return {'error': 'Activity not found'}, 404
+        return make_response(activity.to_dict(), 200)
+
+    def patch(self,id):
+        activity = Activity.query.filter(Activity.id==id).first()
+        if not activity: 
+            return {'error': 'Activity not found'}, 404
+
+        json_data = request.get_json()
+        for key, value in json_data.items():
+            if hasattr(activity, key):
+                setattr(activity, key, value)
+            else:
+                return {'error': f'Invalid field: {key}'}, 400
+        
+        db.session.commit()
+        return make_response(activity.to_dict(), 200)
+
+    def delete(self,id):
+        activity = Activity.query.filter(Activity.id==id).first()
+        if not activity: 
+            return {'error': 'Activity not found'}, 404
+        db.session.delete(activity)
+        db.session.commit()       
+
+
+class Reviews(Resource): 
+    def get(self):
+        reviews = Review.query.all()
+        reviews_dict = [review.to_dict() for review in reviews]
+        return make_response(reviews_dict, 200)
+
+    def post(self):
+        json_data = request.get_json()
+        if not json_data.get('star') or not json_data.get('comment') or not json_data.get('user_id') or not json_data.get('destination_id'):
+            return {"error": "All fields cannot be empty"}, 422 
+        new_record = Itinerary(
+            star=json_data.get('star'),
+            comment=json_data.get('comment'),
+            user_id=json_data.get('user_id'),
+            destination_id=json_data.get('destination_id'),
+        )
+        db.session.add(new_record)
+        db.session.commit()
+
+class ReviewById(Resource): 
+    def get(self,id):
+        review = Review.query.filter(Review.id==id).first()
+        if not review: 
+            return {'error': 'Review not found'}, 404
+        return make_response(review.to_dict(), 200)
+
+    def patch(self,id):
+        review = Review.query.filter(Review.id==id).first()
+        if not review: 
+            return {'error': 'Review not found'}, 404
+
+        json_data = request.get_json()
+
+        for key, value in json_data.items():
+            if hasattr(review, key):
+                setattr(review, key, value)
+            else:
+                return {'error': f'Invalid field: {key}'}, 400
+        
+        db.session.commit()
+        return make_response(review.to_dict(), 200)
+
+    def delete(self,id):
+        review = Review.query.filter(Review.id==id).first()
+        if not review: 
+            return {'error': 'Review not found'}, 404
+        db.session.delete(review)
+        db.session.commit()     
+
+
 api.add_resource(Signups, '/signup')
 api.add_resource(CheckSession, '/check_session')
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
 api.add_resource(Users, '/users')
 api.add_resource(UserById, '/users/<int:id>')
+api.add_resource(Itineraries, '/itineraries')
+api.add_resource(ItineraryById, '/itineraries/<int:id>')
+api.add_resource(Destinations, '/destinations')
+api.add_resource(DestinationById, '/destinations/<int:id>')
+api.add_resource(Activities, '/activities')
+api.add_resource(Reviews, '/reviews')
+api.add_resource(ReviewById, '/reviews/<int:id>')
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
