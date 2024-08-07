@@ -33,8 +33,7 @@ function App() {
       <header>
         <NavBar user={user} onLogout={handleLogOut} />
       </header>
-      <h1>Project Client</h1>
-      <Outlet />
+      <Outlet  context={{user: user, updateUser:handleLogin }}  />
     </>
   )
 }

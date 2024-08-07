@@ -1,6 +1,8 @@
 import { useState } from "react";
 import LoginForm from "../components/LoginForm";
 import SignUpForm from "../components/SignUpForm";
+import homePhoto from "../components/home_photo.jpg"
+
 
 function Login({ onLogin }){
     const [ showLogin, setShowLogin ] =useState(true);
@@ -27,8 +29,11 @@ function Login({ onLogin }){
                 )}
                 <br/>
                 <div className="home">
-                    <img src="https://png.pngtree.com/thumb_back/fh260/background/20230705/pngtree-realistic-3d-rendering-of-laptop-accessing-online-library-image_3797278.jpg" alt="library" id="topImage"/>
-                    <p>Welcome to Travel Itinerary App! <br/><br/>Dive into a world of boundless knowledge and endless stories with our extensive collection of digital books. Whether you’re a student, a casual reader, or a literary enthusiast, Rumi Online Library is your gateway to an enriching reading experience. Explore thousands of titles across various genres and subjects, all at your fingertips.<br/><br/> Join our community of book lovers and embark on your next literary adventure today!</p>
+                    <img src={homePhoto} alt="Home" id="topImage" style={{ width: '50%', height: 'auto' }} />
+                    <p>Welcome to WanderLog! <br/><br/>Your next adventure starts here. <br/>At WanderLog, we believe that travel should be seamless and memorable. Our app is designed to help you plan every detail of your journey with ease. Whether you're exploring new cities, relaxing on a tropical beach, or embarking on a cross-country road trip, WanderLog has you covered.</p>
+                        <p>Personalized Itineraries: Tailor your travel plans to fit your unique preferences and needs.<br/>Destination Insights: Discover must-see attractions, local hotspots, and hidden gems.</p>
+
+                    <p>Sign up today and let WanderLog turn your travel dreams into reality. Your adventure awaits!</p>
                 </div>
             </div>
         )
