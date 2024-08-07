@@ -65,6 +65,7 @@ class Itinerary(db.Model, SerializerMixin):
     start_date = db.Column(db.DateTime)
     end_date = db.Column(db.DateTime)
     user_id =  db.Column(db.Integer, db.ForeignKey('users.id'))
+    itinerary_description = db.Column(db.String)
     
     user = db.relationship('User', back_populates='itineraries')
     activities = db.relationship('Activity', back_populates='itinerary')
@@ -86,6 +87,7 @@ class Destination(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     city = db.Column(db.String, nullable=False, unique=True)
     country = db.Column(db.String, nullable=False)
+    image_url = db.Column(db.String)
     destination_description = db.Column(db.String)
 
     activities = db.relationship('Activity', back_populates='destination')

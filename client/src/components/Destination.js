@@ -6,7 +6,7 @@ function Destination({ destination }){
 
     return (
          <div className="destinationList">
-            <img src="" alt={destination.city} className="destinationImage"/>
+            <img src={destination.image_url} alt={destination.city} className="destinationImage"/>
             <h5>{destination.city}</h5>
             <small>Country: {destination.country}</small><br/>
             <small>Description: {destination.destination_description}</small><br/>
