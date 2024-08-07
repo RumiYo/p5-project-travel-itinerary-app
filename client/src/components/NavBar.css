@@ -1,0 +1,25 @@
+nav{ 
+    background: #A5A58D;
+    padding: 2px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.nav-link{
+    display: inline-block;
+    box-sizing: border-box;
+    width: 18%;
+    padding: 10px 10px;
+    margin: 0 15px;
+    text-decoration: none;
+    text-align: center;
+    font-size: min(10vw, 15px) ;
+    color: white;
+}
+  
+.active {
+    color: #8c2f39;
+    font-weight: bold;
+}
