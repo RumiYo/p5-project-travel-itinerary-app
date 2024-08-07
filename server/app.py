@@ -161,7 +161,7 @@ class ItineraryById(Resource):
         db.session.delete(itinerary)
         db.session.commit()     
    
-
+   
 class Destinations(Resource):
     def get(self):
         destinations = Destination.query.all()
