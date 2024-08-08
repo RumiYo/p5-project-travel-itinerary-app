@@ -25,14 +25,9 @@ function DestinationDetails(){
     useEffect(() => {
         if (destination) {  
             setActivities(destination.activities || []);
-        }
-    }, [destination]);
-
-    useEffect(() => {
-        if (destination) {  
             setReviews(destination.reviews || []);
         }
-    }, [reviews]);
+    }, [destination]);
 
     if (!destination) {
         return <div>Loading...</div>;
