@@ -61,24 +61,24 @@ class Itinerary(db.Model, SerializerMixin):
     serialize_rules = ('-user.itineraries', '-activities.itinerary', '-activities.destination', '-destinations.itineraries', '-destinations.activities')
 
     id = db.Column(db.Integer, primary_key=True)
-    itinerary_name = db.Column(db.String, nullable=False)
+    name = db.Column(db.String, nullable=False)
     start_date = db.Column(db.DateTime)
     end_date = db.Column(db.DateTime)
     user_id =  db.Column(db.Integer, db.ForeignKey('users.id'))
-    itinerary_description = db.Column(db.String)
+    description = db.Column(db.String)
     
     user = db.relationship('User', back_populates='itineraries')
     activities = db.relationship('Activity', back_populates='itinerary')
     destinations = association_proxy('activities', 'destination', creator=lambda project_obj: Activity(project=project_obj))
 
-    @validates('itinerary_name')
+    @validates('name')
     def validate_name(self, key, name):
         if not name:
              raise ValueError("Itinerary Name cannot be empty")
         return name
 
     def __repr__(self):
-        return f'<Itinerary {self.id}: {self.itinerary_name}, {self.start_date}, {self.end_date}, {self.user_id}>'
+        return f'<Itinerary {self.id}: {self.name}, {self.start_date}, {self.end_date}, {self.user_id}>'
 
 class Destination(db.Model, SerializerMixin):
     __tablename__ = 'destinations'
@@ -88,7 +88,7 @@ class Destination(db.Model, SerializerMixin):
     city = db.Column(db.String, nullable=False, unique=True)
     country = db.Column(db.String, nullable=False)
     image_url = db.Column(db.String)
-    destination_description = db.Column(db.String)
+    description = db.Column(db.String)
 
     activities = db.relationship('Activity', back_populates='destination')
     itineraries = association_proxy('activities', 'itinerary', creator=lambda project_obj: Activity(project=project_obj))
@@ -108,23 +108,24 @@ class Activity(db.Model, SerializerMixin):
     serialize_rules = ('-itinerary.activities', '-itinerary.destionations', '-destination.activities', '-destinations.itineraries')
 
     id = db.Column(db.Integer, primary_key=True)
-    activity_name = db.Column(db.String, nullable=False)
+    name = db.Column(db.String, nullable=False)
     date =  db.Column(db.DateTime)
-    activity_description = db.Column(db.String)
+    description = db.Column(db.String)
+    image_url = db.Column(db.String)
     itinerary_id = db.Column(db.Integer, db.ForeignKey('itineraries.id'))
     destination_id = db.Column(db.Integer, db.ForeignKey('destinations.id'))
 
     itinerary = db.relationship('Itinerary', back_populates='activities')
     destination = db.relationship('Destination', back_populates='activities')
 
-    @validates('activity_name')
+    @validates('name')
     def validate_input(self, key, name):
         if not name:
              raise ValueError("Activity Name cannot be empty")
         return name
 
     def __repr__(self):
-        return f'<Activity {self.id}: {self.activity_name}, {self.date}, {self.activity_description}, {self.itinerary_id}, {self.destination_id}>'
+        return f'<Activity {self.id}: {self.name}, {self.date}, {self.description}, {self.itinerary_id}, {self.destination_id}>'
 
 class Review(db.Model, SerializerMixin):
     __tablename__ = 'reviews'

@@ -8,7 +8,7 @@ function Destination({ destination }){
          <div className="destinationList">
             <img src={destination.image_url} alt={destination.city} className="destinationListImage"/>
             <h5>{destination.city} ({destination.country})</h5>
-            <small>{destination.destination_description}</small><br/>
+            <small>{destination.description}</small><br/>
             <small>
              <Link to={`/destinations/${destination.id}`} >View details</Link> 
             </small> 

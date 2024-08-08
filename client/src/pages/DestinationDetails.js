@@ -36,12 +36,12 @@ function DestinationDetails(){
             <h1>{destination.city} ({destination.country})</h1>
             <img src={destination.image_url} alt={destination.city} id="destinationDetailImage"/>
             <h4>Summary</h4>
-            <p>{destination.destination_description}</p>
+            <p>{destination.description}</p>
             <br/>
             {activities.map((a) => (
                 <div>
-                    <h4 key={a.id}>{a.activity_name}</h4>
-                    <small>{a.activity_description}</small>
+                    <h4 key={a.id}>{a.name}</h4>
+                    <small>{a.description}</small>
                 </div>
             ))}
             <br />
