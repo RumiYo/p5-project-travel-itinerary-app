@@ -1,6 +1,6 @@
 nav{ 
     background: #A5A58D;
-    padding: 2px;
+    padding: 1.5px 0px;
     position: fixed;
     width: 100%;
     top: 0;
@@ -10,9 +10,9 @@ nav{
 .nav-link{
     display: inline-block;
     box-sizing: border-box;
-    width: 18%;
-    padding: 10px 10px;
-    margin: 0 15px;
+    width: 16%;
+    padding: 10px 0px;
+    margin: 0% 2%;
     text-decoration: none;
     text-align: center;
     font-size: min(10vw, 15px) ;

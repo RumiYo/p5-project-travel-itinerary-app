@@ -20,12 +20,10 @@ const routes = [
             {
                 path: "/destinations",
                 element: <DestinationsIndex />,
-                children: [
-                    {
-                        path: "/destinations/:id",
-                        element: <DestinationDetails />
-                    },
-                ]
+            },
+            {
+                path: "/destinations/:id",
+                element: <DestinationDetails />
             },
             {
                 path: "/itineraries",

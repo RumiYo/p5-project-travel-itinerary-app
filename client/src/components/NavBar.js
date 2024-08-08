@@ -1,13 +1,15 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./NavBar.css";
 
 function NavBar({ member, onLogout }){
+    const navigate = useNavigate();
 
     function handleLogoutClick() {
         fetch("/logout", { method: "DELETE" }).then((r) => {
           if (r.ok) {
             onLogout();
+            navigate("/"); 
           }
         });
       }

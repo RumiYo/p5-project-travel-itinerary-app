@@ -34,13 +34,13 @@ def seed_destinations():
         Destination(
             city="Paris", 
             country="France", 
-            image_url="",
+            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/paris_image.jpg?raw=true",
             destination_description="Paris is the capital of France and one of the world's most important cities. It's located in the north-central part of the country along the Seine River and is known for its culture, fashion, gastronomy, and intellectual community." 
         ),
         Destination(
             city="New York", 
             country="USA", 
-            image_url="",
+            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/newyork_image.jpeg?raw=true",
             destination_description="The city that never sleeps."
         ),
         # ... Add more
