@@ -1,5 +1,6 @@
 import { useParams, useOutletContext, Link  } from "react-router-dom";
 import { useState, useEffect } from "react";
+import StarRating from '../components/StarRating';
 
 function DestinationDetails(){
 
@@ -8,6 +9,7 @@ function DestinationDetails(){
     const [ error, setError] = useState("")
     const [ destination, setDestination ] = useState(null)
     const [ activities, setActivities ] = useState([])
+    const [ reviews, setReviews ] = useState([])
 
     useEffect(() => {
         fetch(`/destinations/${parseInt(params.id)}`)
@@ -26,6 +28,12 @@ function DestinationDetails(){
         }
     }, [destination]);
 
+    useEffect(() => {
+        if (destination) {  
+            setReviews(destination.reviews || []);
+        }
+    }, [reviews]);
+
     if (!destination) {
         return <div>Loading...</div>;
     }
@@ -35,15 +43,25 @@ function DestinationDetails(){
 
             <h1>{destination.city} ({destination.country})</h1>
             <img src={destination.image_url} alt={destination.city} id="destinationDetailImage"/>
-            <h4>Summary</h4>
             <p>{destination.description}</p>
+            <h4>Reviews</h4>
+            <div>
+            {reviews.map((r) => (
+                    <div key={r.id} className="reviewList">
+                        <p><StarRating star={r.star} />  {r.comment}</p>
+                    </div>
+                ))}                
+            </div>
             <br/>
-            {activities.map((a) => (
-                <div>
-                    <h4 key={a.id}>{a.name}</h4>
-                    <small>{a.description}</small>
-                </div>
-            ))}
+            <div>
+                {activities.map((a) => (
+                    <div key={a.id} className="activityList">
+                        <h4>{a.name}</h4>
+                        <img src={a.image_url} alt={a.name} className="activityListImage"/><br/>
+                        <small>{a.description}</small>
+                    </div>
+                ))}
+            </div>
             <br />
             <Link id="closeDetails" to={`/destinations`}>Close details</Link> 
         </div>

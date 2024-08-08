@@ -18,71 +18,101 @@ main {
 /* home */
 
 .home {
-    width: 80%;
-    margin: 5% 10%;
-    align-items: center;  
-    text-align: center; 
+  width: 80%;
+  margin: 5% 10%;
+  align-items: center;  
+  text-align: center; 
 }
 #login {
-    width: 80%;
-    margin: 5% 10%;
-    align-items: center;  
-    text-align: center; 
+  width: 80%;
+  margin: 5% 10%;
+  align-items: center;  
+  text-align: center; 
 }
 .LoginSignupForms{
-    background-color: #EDDCD2;
-    padding: 5px;
+  background-color: #EDDCD2;
+  padding: 5px;
 }
 
 .buttons {
-        background-color: #CB997E; /* Green background */
-        border: none; /* Remove borders */
-        color: white; /* White text */
-        padding: 10px 20px; /* Some padding */
-        text-align: center; /* Center text */
-        text-decoration: none; /* Remove underline */
-        display: inline-block; /* Inline block display */
-        font-size: 16px; /* Text size */
-        margin: 4px 2px; /* Margins */
-        cursor: pointer; /* Pointer cursor on hover */
-        border-radius: 4px; /* Rounded corners */
-        transition: background-color 0.3s ease; /* Smooth transition */
-    }
+  background-color: #CB997E; /* Green background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 10px 20px; /* Some padding */
+  text-align: center; /* Center text */
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Inline block display */
+  font-size: 16px; /* Text size */
+  margin: 4px 2px; /* Margins */
+  cursor: pointer; /* Pointer cursor on hover */
+  border-radius: 4px; /* Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
     
-    .buttons:hover {
-        background-color: #985D3D;
-    }
+.buttons:hover {
+  background-color: #985D3D;
+}
 
-    .buttons:disabled {
-        background-color: #A6A6A6;
-        color: #EDDCD2; 
-    }
+.buttons:disabled {
+  background-color: #A6A6A6;
+  color: #EDDCD2; 
+}
 
 
 /* destinationList */
 
 div.destinationList {
-    background-color: #EDDCD2;
-    align-items: center;
-    margin:4px;
-    text-align: center;
-    display: block;
-    float: left;
-    padding: 15px 0.5% 5px 0.5%;
-    width: 45%;
-    min-width: 110px;
-    height:450px;
-    overflow: auto;
-  }
-  img.destinationListImage {
-    max-width: 90%;
-    max-height: 75%;    
-    align-items: center;
-    margin-top: 2px;
-  }
+  background-color: #EDDCD2;
+  align-items: center;
+  margin:4px;
+  text-align: center;
+  display: block;
+  float: left;
+  padding: 15px 0.5% 5px 0.5%;
+  width: 45%;
+  min-width: 110px;
+  height:450px;
+  overflow: auto;
+}
+  
+img.destinationListImage {
+  max-width: 90%;
+  max-height: 75%;    
+  align-items: center;
+  margin-top: 2px;
+}
 
-  img#destinationDetailImage {
-    max-width: 80%;
-    max-height: 75%; 
-    align-items: center; 
-  }
+/* destinationDetail */
+#destinationDetail {
+  width: 90%;
+  margin: 5% 5%;
+  align-items: center;  
+  text-align: center; 
+}
+
+img#destinationDetailImage {
+  max-width: 70%;
+  max-height: 75%; 
+  align-items: center;  
+}
+
+/* activityList */
+div.activityList {
+  background-color: #EDDCD2;
+  align-items: center;
+  margin:4px;
+  text-align: center;
+  display: block;
+  float: left;
+  padding: 15px 0.5% 5px 0.5%;
+  width: 45%;
+  min-width: 110px;
+  height:350px;
+  overflow: auto;
+}
+img.activityListImage {
+  max-width: 90%;
+  max-height: 75%;    
+  align-items: center;
+  margin-top: 2px;
+}

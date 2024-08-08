@@ -35,13 +35,13 @@ def seed_destinations():
             city="Paris", 
             country="France", 
             image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/paris_image.jpg?raw=true",
-            destination_description="Paris is the capital of France and one of the world's most important cities. It's located in the north-central part of the country along the Seine River and is known for its culture, fashion, gastronomy, and intellectual community." 
+            description="Paris is the capital of France and one of the world's most important cities. It's located in the north-central part of the country along the Seine River and is known for its culture, fashion, gastronomy, and intellectual community." 
         ),
         Destination(
             city="New York", 
             country="USA", 
             image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/newyork_image.jpeg?raw=true",
-            destination_description="The city that never sleeps."
+            description="The city that never sleeps."
         ),
         # ... Add more
     ]
@@ -51,18 +51,18 @@ def seed_destinations():
 def seed_itineraries():
     itineraries = [
         Itinerary(
-            itinerary_name="Family Vacation", 
+            name="Family Vacation", 
             start_date=datetime(2024, 6, 1), 
             end_date=datetime(2024, 6, 10), 
             user_id=1,
-            itinerary_description="Our anual family trip with mom, dad and sister"
+            description="Our anual family trip with mom, dad and sister"
             ),
         Itinerary(
-            itinerary_name="Business Trip", 
+            name="Business Trip", 
             start_date=datetime(2024, 7, 15), 
             end_date=datetime(2024, 7, 20), 
             user_id=2,
-            itinerary_description="Client visit and IT conference."
+            description="Client visit and IT conference."
             ),
         # ... Add more
     ]
@@ -72,16 +72,18 @@ def seed_itineraries():
 def seed_activities():
     activities = [
         Activity(
-            activity_name="Eiffel Tower Visit", 
+            name="Eiffel Tower Visit", 
             date=datetime(2024, 6, 2), 
-            activity_description="Visit the iconic Eiffel Tower.", 
+            description="Visit the iconic Eiffel Tower.", 
+            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/image_effelTower.jpg?raw=true",
             itinerary_id=1, 
             destination_id=1
         ),
         Activity(
-            activity_name="Central Park Walk", 
+            name="Central Park Walk", 
             date=datetime(2024, 7, 16), 
-            activity_description="Enjoy a walk in Central Park.", 
+            description="Enjoy a walk in Central Park.", 
+            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/image_centralPark.jpg?raw=true",
             itinerary_id=2, 
             destination_id=2
         ),
