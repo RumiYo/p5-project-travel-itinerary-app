@@ -98,6 +98,20 @@ def seed_activities():
             itinerary_id=2, 
             destination_id=2
         ),
+        Activity(
+            name="Sainte-Chapelle", 
+            date=datetime(2024, 6, 3), 
+            description="Take a audio guide tour", 
+            itinerary_id=1, 
+            destination_id=1
+        ),
+        Activity(
+            name="Park Güell", 
+            date=datetime(2024, 6, 8), 
+            description="Take a taxi to get there", 
+            itinerary_id=1, 
+            destination_id=3
+        ),
         # ... Add more 
     ]
     db.session.add_all(activities)

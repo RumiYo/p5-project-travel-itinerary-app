@@ -16,11 +16,11 @@ function DestinationsIndex(){
 
     return (
         <div>
-            <h2>Destination city List</h2>
+            <h2>Popular Cities</h2>
             {/* <Link to="/destinations/add">Do you want to add your favorite destination city?</Link> */}
             <br/>
             <Outlet context={{destinationList: destinations, user:user }}/>
-            <div className="allDestination">
+            <div className="allDestinations">
                 {destinations.map((d) => (
                     <Destination destination={d} key={d.id}/>
                 ))}

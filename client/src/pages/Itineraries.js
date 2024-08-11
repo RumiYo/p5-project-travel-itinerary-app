@@ -27,12 +27,11 @@ function Itineraries(){
 
     return (
         <div>
-            <h1>Itineraries List</h1>
+            <h2>Itineraries List</h2>
             {/* <Link to="/itineraries/add">Do you want to plan another trip?</Link> */}
-            <br/>
             <Outlet context={{ItinerariesList: itineraries, user:user }}/>
             <div className="allItineraries">
-                <h2>Upcoming Itineraries</h2>
+                <h3>Upcoming Itineraries</h3>
                 {upcomingItineraries.length >0 ? (
                     upcomingItineraries.map((i) => (
                     <Itinerary itinerary={i} key={i.id}/>
@@ -43,7 +42,7 @@ function Itineraries(){
             </div>
             <br/>
             <div className="allItineraries">
-                <h2>Past Itineraries</h2>
+                <h3>Past Itineraries</h3>
                 {pastItineraries.length >0 ? (
                     pastItineraries.map((i) => (
                     <Itinerary itinerary={i} key={i.id}/>

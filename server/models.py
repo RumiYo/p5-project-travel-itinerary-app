@@ -1,7 +1,8 @@
-from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm import validates
 from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy_serializer import SerializerMixin
+from datetime import datetime
 
 from config import db, bcrypt
 
@@ -20,10 +21,10 @@ class User(db.Model, SerializerMixin):
     reviews = db.relationship('Review', back_populates='user', cascade='all, delete-orphan')
 
     @validates('email')
-    def validate_email(self, key, email):
-        if '@' not in email:
+    def validate_email(self, key, value):
+        if '@' not in value:
              raise ValueError("Email address validation error")
-        return email
+        return value
 
     @hybrid_property
     def password_hash(self):
@@ -43,22 +44,19 @@ class User(db.Model, SerializerMixin):
             self._password_hash, password.encode('utf-8')
         )
 
-    # def to_dict(self):
-    #     return{
-    #         "id": self.id,
-    #         "first_name": self.first_name, 
-    #         "last_name": self.last_name,
-    #         "username": self.username,
-    #         "email": self.email,
-
-    #     }
-
     def __repr__(self):
         return f'<User {self.id}: {self.first_name}, {self.last_name}, {self.username}, {self.email}>'
 
 class Itinerary(db.Model, SerializerMixin):
     __tablename__ = 'itineraries'
-    serialize_rules = ('-user.itineraries', '-activities.itinerary', '-activities.destination',)
+    serialize_rules = (
+        '-user.itineraries', 
+        '-activities.itinerary',
+        '-activities.destination.itineraries',
+        '-activities.destination.activities', 
+        '-activities.destination.reviews', 
+        '-activities.destination.popularSpots', 
+    )
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -70,20 +68,31 @@ class Itinerary(db.Model, SerializerMixin):
     user = db.relationship('User', back_populates='itineraries')
     activities = db.relationship('Activity', back_populates='itinerary', cascade='all, delete-orphan')
     destinations = association_proxy('activities', 'destination',
-                     creator=lambda destination_obj: Activity(destination=destination_obj))
-
+                        creator=lambda destination_obj: Activity(destination=destination_obj))
+    
     @validates('name')
-    def validate_name(self, key, name):
-        if not name:
+    def validate_name(self, key, value):
+        if not value:
              raise ValueError("Itinerary Name cannot be empty")
-        return name
+        return value
 
     def __repr__(self):
         return f'<Itinerary {self.id}: {self.name}, {self.start_date}, {self.end_date}, {self.user_id}>'
 
+    # def to_dict(self):
+    #     itinerary_dict = super().to_dict()  # Or manually create your dict
+    #     itinerary_dict['destinations'] = [activity.destination.to_dict() for activity in self.activities]
+    #     return itinerary_dict
+
 class Destination(db.Model, SerializerMixin):
     __tablename__ = 'destinations'
-    serialize_rules = ('-activities.destination', '-activities.itinerary', '-itineraries.activities', '-itineraries.destinations', '-reviews.destination', '-popularSpots.destination')
+    serialize_rules = (
+        '-activities.itinerary', 
+        '-itineraries.activities', 
+        '-itineraries.destinations', 
+        '-reviews.destination.activities', 
+        '-popularSpots.destination'
+        )
 
     id = db.Column(db.Integer, primary_key=True)
     city = db.Column(db.String, nullable=False, unique=True)
@@ -93,22 +102,22 @@ class Destination(db.Model, SerializerMixin):
 
     activities = db.relationship('Activity', back_populates='destination')
     itineraries = association_proxy('activities', 'itinerary', 
-                    creator=lambda project_obj: Activity(project=project_obj))
+                        creator=lambda itinerary_obj: Activity(itinerary=itinerary_obj))
     reviews = db.relationship('Review', back_populates='destination')
     popularSpots = db.relationship('PopularSpot', back_populates='destination')
 
     @validates('city', 'country')
-    def validate_input(self, key, name):
-        if not name:
-             raise ValueError("City and Country cannot be empty")
-        return name
+    def validate_input(self, key, value):
+        if not value:
+             raise ValueError(f"{key.capitalize()} cannot be empty")
+        return value
 
     def __repr__(self):
         return f'<Destination {self.id}: {self.city}, {self.country}, {self.description}>'
 
 class Activity(db.Model, SerializerMixin):
     __tablename__ = 'activities'
-    serialize_rules = ('-itinerary.activities', '-itinerary.destionations', '-destination.activities', '-destinations.itineraries')
+    serialize_rules = ('-itinerary.activities', '-itinerary.destinations', '-destination.activities', '-destination.itineraries')
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -121,10 +130,10 @@ class Activity(db.Model, SerializerMixin):
     destination = db.relationship('Destination', back_populates='activities')
 
     @validates('name')
-    def validate_input(self, key, name):
-        if not name:
+    def validate_input(self, key, value):
+        if not value:
              raise ValueError("Activity Name cannot be empty")
-        return name
+        return value
 
     def __repr__(self):
         return f'<Activity {self.id}: {self.name}, {self.date}, {self.description}, {self.itinerary_id}, {self.destination_id}>'
@@ -143,11 +152,11 @@ class Review(db.Model, SerializerMixin):
     destination = db.relationship('Destination', back_populates='reviews')
 
     @validates('star')
-    def validate_star(self, key, star):
-        star = float(star)
+    def validate_star(self, key, value):
+        star = float(value)
         if star < 0.00 or star > 5.00:
             raise ValueError('Star must be between 0.00 and 5.00')
-        return star
+        return value
 
     def __repr__(self):
         return f'<Review {self.id}: {self.star}, {self.comment}, {self.user_id}, {self.destination_id}>'
