@@ -8,6 +8,7 @@ from flask_restful import Resource
 
 # Local imports
 from config import app, db, api
+from datetime import datetime
 # Add your model imports
 from models import User, Itinerary, Destination, Activity, Review, PopularSpot
 
@@ -225,11 +226,22 @@ class Activities(Resource):
 
     def post(self):
         json_data = request.get_json()
-        if not json_data.get('activity_name') or not json_data.get('activity_description') or not json_data.get('destination_id'):
-            return {"error": "Activity Name, Description and city name cannot be empty"}, 422 
+
+        try:
+            date_obj = datetime.strptime(json_data.get('date'), '%Y-%m-%d').date()
+        except ValueError:
+            return jsonify({"error": "Invalid date format. Expected YYYY-MM-DD."}), 400
+        
+        missing_fields = []
+        for field in ['name', 'description', 'destination_id', 'itinerary_id']:
+            if not json_data.get(field):
+                missing_fields.append(field)
+        if missing_fields:
+            return jsonify({"error": f"Missing required fields: {', '.join(missing_fields)}"}), 422
+
         new_record = Activity(
             name=json_data.get('name'),
-            date=json_data.get('date'),
+            date=date_obj,
             description=json_data.get('description'),
             itinerary_id=json_data.get('itinerary_id'),
             destination_id=json_data.get('destination_id'),

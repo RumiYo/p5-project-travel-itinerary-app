@@ -7,7 +7,7 @@ import Itineraries from "./pages/Itineraries";
 import UserPage from "./pages/UserPage";
 import ProfileEdit from "./components/ProfileEdit";
 import ProfileDelete from "./components/ProfileDelete";
-import ItineraryDetails from "./components/ItineraryDetails";
+import ItineraryDetails from "./pages/ItineraryDetails";
 import AddActivities from "./components/AddActivities";
 
 

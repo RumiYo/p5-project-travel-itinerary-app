@@ -19,6 +19,10 @@ function ItineraryDetails(){
         })
     }, [params.id]);
 
+    const updateActivites = (newActivity) => {
+        setActivities([...activities, newActivity]);
+    };
+
     if (!itinerary) {
         return <div>Loading...</div>;
     }
@@ -46,9 +50,9 @@ function ItineraryDetails(){
                 ) : (
                     <p>No activities are planned yet.</p>
                 )}
-                <Link to={`/itineraries/${itinerary.id}/activities`}>Add activities</Link>
+                <Link to={`/itineraries/${itinerary.id}/activities`}>Let's plan activities</Link>
                 <br/>
-                <Outlet />
+                <Outlet context={{itinerary:itinerary, updateActivites:updateActivites}} />
             </div>
             <Link to={`/itineraries`}>Close</Link>
         </div>

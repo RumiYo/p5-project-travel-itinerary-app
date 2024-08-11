@@ -2,7 +2,6 @@ from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm import validates
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy_serializer import SerializerMixin
-from datetime import datetime
 
 from config import db, bcrypt
 
@@ -60,8 +59,8 @@ class Itinerary(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    start_date = db.Column(db.DateTime)
-    end_date = db.Column(db.DateTime)
+    start_date = db.Column(db.Date)
+    end_date = db.Column(db.Date)
     user_id =  db.Column(db.Integer, db.ForeignKey('users.id'))
     description = db.Column(db.String)
     
@@ -121,7 +120,7 @@ class Activity(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    date =  db.Column(db.DateTime)
+    date =  db.Column(db.Date)
     description = db.Column(db.String)
     itinerary_id = db.Column(db.Integer, db.ForeignKey('itineraries.id'))
     destination_id = db.Column(db.Integer, db.ForeignKey('destinations.id'))
