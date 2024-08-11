@@ -58,7 +58,7 @@ class User(db.Model, SerializerMixin):
 
 class Itinerary(db.Model, SerializerMixin):
     __tablename__ = 'itineraries'
-    serialize_rules = ('-user.itineraries', '-activities.itinerary', '-activities.destination', '-destinations.itineraries', '-destinations.activities')
+    serialize_rules = ('-user.itineraries', '-activities.itinerary', '-activities.destination',)
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -69,7 +69,8 @@ class Itinerary(db.Model, SerializerMixin):
     
     user = db.relationship('User', back_populates='itineraries')
     activities = db.relationship('Activity', back_populates='itinerary')
-    destinations = association_proxy('activities', 'destination', creator=lambda project_obj: Activity(project=project_obj))
+    destinations = association_proxy('activities', 'destination',
+                     creator=lambda destination_obj: Activity(destination=destination_obj))
 
     @validates('name')
     def validate_name(self, key, name):
@@ -91,7 +92,8 @@ class Destination(db.Model, SerializerMixin):
     description = db.Column(db.String)
 
     activities = db.relationship('Activity', back_populates='destination')
-    itineraries = association_proxy('activities', 'itinerary', creator=lambda project_obj: Activity(project=project_obj))
+    itineraries = association_proxy('activities', 'itinerary', 
+                    creator=lambda project_obj: Activity(project=project_obj))
     reviews = db.relationship('Review', back_populates='destination')
     popularSpots = db.relationship('PopularSpot', back_populates='destination')
 

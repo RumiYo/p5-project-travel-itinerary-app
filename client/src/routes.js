@@ -5,6 +5,8 @@ import DestinationsIndex from "./pages/DestinationsIndex";
 import DestinationDetails from "./pages/DestinationDetails";
 import Itineraries from "./pages/Itineraries";
 import UserPage from "./pages/UserPage";
+import ProfileEdit from "./components/ProfileEdit";
+import ProfileDelete from "./components/ProfileDelete";
 
 
 const routes = [
@@ -32,6 +34,16 @@ const routes = [
             {
                 path: "/profile",
                 element: <UserPage />,
+                children: [
+                    {
+                        path: "/profile/edit",
+                        element: <ProfileEdit />
+                    },
+                    {
+                        path: "/profile/delete",
+                        element: <ProfileDelete />
+                    }
+                ]
             }
         ]
     }

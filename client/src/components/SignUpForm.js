@@ -1,19 +1,21 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from 'formik';
 import * as yup from "yup";
 
 function SignUpForm({ onSignUp }){
+  const navigate = useNavigate();
 
-    const [error, setError] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
 
   const formSchema = yup.object().shape({
-    first_name: yup.string().required("Must enter First Name").max(15),
-    last_name: yup.string().required("Must enter Last Name").max(15),
-    username: yup.string().required("Must enter a User Name").max(10),
+    first_name: yup.string().required("Must enter First Name").max(15, "First Name must be at most 15 characters long"),
+    last_name: yup.string().required("Must enter Last Name").max(15, "Last Name must be at most 15 characters long"),
+    username: yup.string().required("Must enter a User Name").max(10, "Username must be at most 10 characters long").matches(/^\S*$/, "Username cannot contain spaces"),
     email: yup.string().email("Invalid email").required("Must enter email"),
-    password_hash: yup.string().required("Must enter password").max(15),
+    password_hash: yup.string().required("Must enter password").matches(/^\S*$/, "Username cannot contain spaces").max(15),
   });
 
     const formik = useFormik({
@@ -37,7 +39,10 @@ function SignUpForm({ onSignUp }){
         .then((r) => {
           setIsLoading(false);
           if (r.ok) {
-            r.json().then((user) => onSignUp(user));
+            r.json().then((user) => {
+              onSignUp(user)
+              navigate("/"); 
+            });
           } else {
             r.json().then((err) => setError(err.error));
           }
