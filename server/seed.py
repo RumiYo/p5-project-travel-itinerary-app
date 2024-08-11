@@ -41,7 +41,13 @@ def seed_destinations():
             city="New York", 
             country="USA", 
             image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/newyork_image.jpeg?raw=true",
-            description="The city that never sleeps."
+            description="An iconic global centre that has inspired the world with its brilliant architecture, movies, and art. Also known as the Big Apple, New York is well-known for its magnificent skyscrapers, Broadway shows and beautiful landmarks, making it the perfect destination for travellers from all over."
+        ),
+        Destination(
+            city="Barcelona", 
+            country="Spain", 
+            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/newyork_image.jpeg?raw=true",
+            description="Barcelona, the cosmopolitan capital of Spain’s Catalonia region, is known for its art and architecture. The fantastical Sagrada Família church and other modernist landmarks designed by Antoni Gaudí dot the city. Museu Picasso and Fundació Joan Miró feature modern art by their namesakes."
         ),
         # ... Add more
     ]
@@ -113,6 +119,12 @@ def seed_popularSpots():
             description="Central Park is a world-famous, 843-acre public park in the middle of Manhattan, New York City. ", 
             image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/image_centralPark.jpg?raw=true",
             destination_id=2
+        ),        
+        PopularSpot(
+            name="Sagrada Família", 
+            description="The Sagrada Família, or Expiatory Temple, is a unfinished basilica in Barcelona, Spain that's been under construction since 1882. Designed by architect Antoni Gaudí, the temple is a UNESCO World Heritage Site", 
+            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/image_centralPark.jpg?raw=true",
+            destination_id=3
         ),
         # ... Add more 
     ]
