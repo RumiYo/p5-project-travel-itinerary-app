@@ -11,7 +11,7 @@ import random
 
 # Local imports
 from app import app
-from models import db, User, Destination, Activity, Itinerary, Review
+from models import db, User, Destination, Activity, Itinerary, Review, PopularSpot
 
 fake = Faker()
 
@@ -75,7 +75,6 @@ def seed_activities():
             name="Eiffel Tower Visit", 
             date=datetime(2024, 6, 2), 
             description="Visit the iconic Eiffel Tower.", 
-            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/image_effelTower.jpg?raw=true",
             itinerary_id=1, 
             destination_id=1
         ),
@@ -83,7 +82,6 @@ def seed_activities():
             name="Central Park Walk", 
             date=datetime(2024, 7, 16), 
             description="Enjoy a walk in Central Park.", 
-            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/image_centralPark.jpg?raw=true",
             itinerary_id=2, 
             destination_id=2
         ),
@@ -96,9 +94,29 @@ def seed_reviews():
     reviews = [
         Review(star=4.5, comment="Amazing experience!", user_id=1, destination_id=1),
         Review(star=3.0, comment="It was okay.", user_id=2, destination_id=2),
+        Review(star=2.6, comment="A lot of homeless people and it smelled bad...", user_id=4, destination_id=2),
         # ... Add more 
     ]
     db.session.add_all(reviews)
+    db.session.commit()
+
+def seed_popularSpots():
+    popularSpots = [
+        PopularSpot(
+            name="Eiffel Tower", 
+            description="The Eiffel Tower is a wrought iron tower in Paris, France that's 1,063 ft (324 m) tall. It's a famous symbol of Paris and one of the most recognizable structures in the world. ", 
+            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/image_effelTower.jpg?raw=true", 
+            destination_id=1
+        ),
+        PopularSpot(
+            name="Central Park", 
+            description="Central Park is a world-famous, 843-acre public park in the middle of Manhattan, New York City. ", 
+            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/image_centralPark.jpg?raw=true",
+            destination_id=2
+        ),
+        # ... Add more 
+    ]
+    db.session.add_all(popularSpots)
     db.session.commit()
 
 if __name__ == '__main__':
@@ -110,6 +128,7 @@ if __name__ == '__main__':
         Destination.query.delete()
         Activity.query.delete()
         Review.query.delete()
+        PopularSpot.query.delete()
         print("Starting seed...")
 
         print('Seeding users...')
@@ -127,4 +146,6 @@ if __name__ == '__main__':
         print('Seeding reviews...')
         seed_reviews()
        
+        print('Seeding Popular Spots...')
+        seed_popularSpots()
 

@@ -96,8 +96,8 @@ img#destinationDetailImage {
   align-items: center;  
 }
 
-/* activityList */
-div.activityList {
+/* popularSpotsList under Destination */
+div.popularSpotsList {
   background-color: #EDDCD2;
   align-items: center;
   margin:4px;
@@ -110,7 +110,7 @@ div.activityList {
   height:350px;
   overflow: auto;
 }
-img.activityListImage {
+img.popularSpotsListImage {
   max-width: 90%;
   max-height: 75%;    
   align-items: center;

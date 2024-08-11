@@ -16,7 +16,7 @@ function StarRating({ star }) {
     }
   }
 
-  return <div>{stars}</div>;
+  return <span>{stars}</span>;
 }
 
 export default StarRating;

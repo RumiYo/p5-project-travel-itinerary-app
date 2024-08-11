@@ -1,6 +1,7 @@
 import { useParams, useOutletContext, Link  } from "react-router-dom";
 import { useState, useEffect } from "react";
 import StarRating from '../components/StarRating';
+import ReviewForm from "../components/ReviewForm";
 
 function DestinationDetails(){
 
@@ -8,7 +9,7 @@ function DestinationDetails(){
     const { user } = useOutletContext();
     const [ error, setError] = useState("")
     const [ destination, setDestination ] = useState(null)
-    const [ activities, setActivities ] = useState([])
+    const [ popularSpots, setPopularSpots ] = useState([])
     const [ reviews, setReviews ] = useState([])
 
     useEffect(() => {
@@ -24,10 +25,14 @@ function DestinationDetails(){
 
     useEffect(() => {
         if (destination) {  
-            setActivities(destination.activities || []);
+            setPopularSpots(destination.popularSpots || []);
             setReviews(destination.reviews || []);
         }
     }, [destination]);
+
+    const updateReviews = (newReview) => {
+        setReviews([...reviews, newReview]);
+    };
 
     if (!destination) {
         return <div>Loading...</div>;
@@ -43,16 +48,18 @@ function DestinationDetails(){
             <div>
             {reviews.map((r) => (
                     <div key={r.id} className="reviewList">
-                        <p><StarRating star={r.star} />  {r.comment}</p>
+                        <StarRating star={r.star} />  
+                        <span>   {r.comment}</span>
                     </div>
                 ))}                
             </div>
+            < ReviewForm destination={destination} user={user} updateReviews={updateReviews}/>
             <br/>
             <div>
-                {activities.map((a) => (
-                    <div key={a.id} className="activityList">
-                        <h4>{a.name}</h4>
-                        <img src={a.image_url} alt={a.name} className="activityListImage"/><br/>
+                {popularSpots.map((a) => (
+                    <div key={a.id} className="popularSpotsList">
+                        <h3>{a.name}</h3>
+                        <img src={a.image_url} alt={a.name} className="popularSpotsListImage"/><br/>
                         <small>{a.description}</small>
                     </div>
                 ))}

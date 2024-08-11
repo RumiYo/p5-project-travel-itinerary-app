@@ -82,7 +82,7 @@ class Itinerary(db.Model, SerializerMixin):
 
 class Destination(db.Model, SerializerMixin):
     __tablename__ = 'destinations'
-    serialize_rules = ('-activities.destination', '-activities.itinerary', '-itineraries.activities', '-itineraries.destinations', '-reviews.destination')
+    serialize_rules = ('-activities.destination', '-activities.itinerary', '-itineraries.activities', '-itineraries.destinations', '-reviews.destination', '-popularSpots.destination')
 
     id = db.Column(db.Integer, primary_key=True)
     city = db.Column(db.String, nullable=False, unique=True)
@@ -93,6 +93,7 @@ class Destination(db.Model, SerializerMixin):
     activities = db.relationship('Activity', back_populates='destination')
     itineraries = association_proxy('activities', 'itinerary', creator=lambda project_obj: Activity(project=project_obj))
     reviews = db.relationship('Review', back_populates='destination')
+    popularSpots = db.relationship('PopularSpot', back_populates='destination')
 
     @validates('city', 'country')
     def validate_input(self, key, name):
@@ -101,7 +102,7 @@ class Destination(db.Model, SerializerMixin):
         return name
 
     def __repr__(self):
-        return f'<Destination {self.id}: {self.city}, {self.country}, {self.destination_description}>'
+        return f'<Destination {self.id}: {self.city}, {self.country}, {self.description}>'
 
 class Activity(db.Model, SerializerMixin):
     __tablename__ = 'activities'
@@ -111,7 +112,6 @@ class Activity(db.Model, SerializerMixin):
     name = db.Column(db.String, nullable=False)
     date =  db.Column(db.DateTime)
     description = db.Column(db.String)
-    image_url = db.Column(db.String)
     itinerary_id = db.Column(db.Integer, db.ForeignKey('itineraries.id'))
     destination_id = db.Column(db.Integer, db.ForeignKey('destinations.id'))
 
@@ -142,6 +142,7 @@ class Review(db.Model, SerializerMixin):
 
     @validates('star')
     def validate_star(self, key, star):
+        star = float(star)
         if star < 0.00 or star > 5.00:
             raise ValueError('Star must be between 0.00 and 5.00')
         return star
@@ -149,4 +150,17 @@ class Review(db.Model, SerializerMixin):
     def __repr__(self):
         return f'<Review {self.id}: {self.star}, {self.comment}, {self.user_id}, {self.destination_id}>'
 
+class PopularSpot(db.Model, SerializerMixin):
+    __tablename__ = 'popularSpots'
+    serialize_rules = ('-destination.popularSpots',)
 
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    description = db.Column(db.String)
+    image_url = db.Column(db.String)
+    destination_id = db.Column(db.Integer, db.ForeignKey('destinations.id'))
+
+    destination = db.relationship('Destination', back_populates='popularSpots')
+
+    def __repr__(self):
+        return f'<PopularSpot {self.id}: {self.name}, {self.description}, {self.destination_id}>'

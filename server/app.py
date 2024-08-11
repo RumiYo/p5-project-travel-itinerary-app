@@ -9,7 +9,7 @@ from flask_restful import Resource
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import User, Itinerary, Destination, Activity, Review
+from models import User, Itinerary, Destination, Activity, Review, PopularSpot
 
 # Views go here!
 
@@ -115,10 +115,10 @@ class Itineraries(Resource):
 
     def post(self):
         json_data = request.get_json()
-        if not json_data.get('itinerary_name') or not json_data.get('user_id'):
+        if not json_data.get('name') or not json_data.get('user_id'):
             return {"error": "Itinerary name and userID cannot be empty"}, 422 
         new_record = Itinerary(
-            itinerary_name=json_data.get('itinerary_name'),
+            name=json_data.get('name'),
             start_date=json_data.get('start_date'),
             end_date=json_data.get('end_date'),
             user_id=json_data.get('user_id'),
@@ -127,7 +127,7 @@ class Itineraries(Resource):
         db.session.commit()
 
         if not new_record.id:
-            return {'error': 'validation errors'}, 400
+            return {'error': 'validation errors'}, 422
         session['user_id'] = new_record.id
         return make_response(new_record.to_dict(), 201)
 
@@ -161,7 +161,7 @@ class ItineraryById(Resource):
         db.session.delete(itinerary)
         db.session.commit()     
    
-   
+
 class Destinations(Resource):
     def get(self):
         destinations = Destination.query.all()
@@ -178,7 +178,7 @@ class Destinations(Resource):
         new_record = Destination(
             city=json_data.get('city'),
             country=json_data.get('country'),
-            destination_description=json_data.get('destination_description'),
+            description=json_data.get('description'),
         )
         db.session.add(new_record)
         db.session.commit()
@@ -228,14 +228,15 @@ class Activities(Resource):
         if not json_data.get('activity_name') or not json_data.get('activity_description') or not json_data.get('destination_id'):
             return {"error": "Activity Name, Description and city name cannot be empty"}, 422 
         new_record = Activity(
-            activity_name=json_data.get('activity_name'),
+            name=json_data.get('name'),
             date=json_data.get('date'),
-            activity_description=json_data.get('activity_description'),
+            description=json_data.get('description'),
             itinerary_id=json_data.get('itinerary_id'),
             destination_id=json_data.get('destination_id'),
         )
         db.session.add(new_record)
         db.session.commit()
+        return make_response(new_record.to_dict(), 201) 
 
 
 class ActivityById(Resource):
@@ -278,7 +279,7 @@ class Reviews(Resource):
         json_data = request.get_json()
         if not json_data.get('star') or not json_data.get('comment') or not json_data.get('user_id') or not json_data.get('destination_id'):
             return {"error": "All fields cannot be empty"}, 422 
-        new_record = Itinerary(
+        new_record = Review(
             star=json_data.get('star'),
             comment=json_data.get('comment'),
             user_id=json_data.get('user_id'),
@@ -286,6 +287,7 @@ class Reviews(Resource):
         )
         db.session.add(new_record)
         db.session.commit()
+        return make_response(new_record.to_dict(), 201) 
 
 class ReviewById(Resource): 
     def get(self,id):
@@ -317,6 +319,13 @@ class ReviewById(Resource):
         db.session.delete(review)
         db.session.commit()     
 
+class PopularSpots(Resource): 
+    def get(self):
+        popularSpots = PopularSpot.query.all()
+        popularSpots_dict = [popularSpot.to_dict() for popularSpot in popularSpots]
+        return make_response(popularSpots_dict, 200)
+
+
 
 api.add_resource(Signups, '/signup')
 api.add_resource(CheckSession, '/check_session')
@@ -331,6 +340,8 @@ api.add_resource(DestinationById, '/destinations/<int:id>')
 api.add_resource(Activities, '/activities')
 api.add_resource(Reviews, '/reviews')
 api.add_resource(ReviewById, '/reviews/<int:id>')
+api.add_resource(PopularSpots, '/popularSpots')
+
 
 
 if __name__ == '__main__':
