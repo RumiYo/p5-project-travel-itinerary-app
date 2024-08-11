@@ -16,8 +16,8 @@ class User(db.Model, SerializerMixin):
     email = db.Column(db.String, nullable=False, unique=True)
     _password_hash = db.Column(db.String, nullable=False)
 
-    itineraries = db.relationship('Itinerary', back_populates='user')
-    reviews = db.relationship('Review', back_populates='user')
+    itineraries = db.relationship('Itinerary', back_populates='user', cascade='all, delete-orphan')
+    reviews = db.relationship('Review', back_populates='user', cascade='all, delete-orphan')
 
     @validates('email')
     def validate_email(self, key, email):
@@ -68,7 +68,7 @@ class Itinerary(db.Model, SerializerMixin):
     description = db.Column(db.String)
     
     user = db.relationship('User', back_populates='itineraries')
-    activities = db.relationship('Activity', back_populates='itinerary')
+    activities = db.relationship('Activity', back_populates='itinerary', cascade='all, delete-orphan')
     destinations = association_proxy('activities', 'destination',
                      creator=lambda destination_obj: Activity(destination=destination_obj))
 

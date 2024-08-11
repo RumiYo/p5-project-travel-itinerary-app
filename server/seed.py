@@ -46,7 +46,7 @@ def seed_destinations():
         Destination(
             city="Barcelona", 
             country="Spain", 
-            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/newyork_image.jpeg?raw=true",
+            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/Barcelona_image.jpg?raw=true",
             description="Barcelona, the cosmopolitan capital of Spain’s Catalonia region, is known for its art and architecture. The fantastical Sagrada Família church and other modernist landmarks designed by Antoni Gaudí dot the city. Museu Picasso and Fundació Joan Miró feature modern art by their namesakes."
         ),
         # ... Add more
@@ -123,7 +123,7 @@ def seed_popularSpots():
         PopularSpot(
             name="Sagrada Família", 
             description="The Sagrada Família, or Expiatory Temple, is a unfinished basilica in Barcelona, Spain that's been under construction since 1882. Designed by architect Antoni Gaudí, the temple is a UNESCO World Heritage Site", 
-            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/image_centralPark.jpg?raw=true",
+            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/image_SagradaFamilia.jpg?raw=true",
             destination_id=3
         ),
         # ... Add more 

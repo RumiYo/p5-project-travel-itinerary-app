@@ -11,7 +11,7 @@ function Itineraries(){
         fetch(`/users/${user.id}`)
         .then((r) =>r.json())
         .then((r) => setItineraries(r.itineraries));
-    }, [])
+    }, [user])
 
 
     return (
