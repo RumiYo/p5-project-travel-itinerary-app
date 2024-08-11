@@ -5,13 +5,13 @@ import "../App.css";
 function Itinerary({ itinerary }){
 
     return (
-         <div className="itineraryList">
-            <img src="" alt={itinerary.id} className="itineraryImage"/>
-            <h5>{itinerary.name}</h5>
-            <small>{itinerary.description}</small><br/>
-            <small>Start date: {itinerary.start_date}</small><br/>
-            <small>End date: {itinerary.end_date}</small><br/>
-            
+        <div className="itinerariesList">
+            <h3>{itinerary.name}</h3>
+            <p>{itinerary.description}</p>
+            <ul>
+            <li>Start date: {itinerary.start_date}</li>
+            <li>End date: {itinerary.end_date}</li>
+            </ul>
         </div>
     )
 }

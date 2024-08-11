@@ -55,7 +55,7 @@ function DestinationDetails(){
             </div>
             < ReviewForm destination={destination} user={user} updateReviews={updateReviews}/>
             <br/>
-            <div>
+            <div className="allPopularSpot">
                 {popularSpots.map((a) => (
                     <div key={a.id} className="popularSpotsList">
                         <h3>{a.name}</h3>

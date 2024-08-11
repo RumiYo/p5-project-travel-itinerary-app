@@ -70,6 +70,13 @@ def seed_itineraries():
             user_id=2,
             description="Client visit and IT conference."
             ),
+        Itinerary(
+            name="Christmas Celebration", 
+            start_date=datetime(2024, 12, 20), 
+            end_date=datetime(2024, 12, 29), 
+            user_id=1,
+            description="Destination is not decided but we will go to somewhere warm"
+            ),
         # ... Add more
     ]
     db.session.add_all(itineraries)
@@ -125,6 +132,12 @@ def seed_popularSpots():
             description="The Sagrada Família, or Expiatory Temple, is a unfinished basilica in Barcelona, Spain that's been under construction since 1882. Designed by architect Antoni Gaudí, the temple is a UNESCO World Heritage Site", 
             image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/image_SagradaFamilia.jpg?raw=true",
             destination_id=3
+        ),
+        PopularSpot(
+            name="Louvre Museum", 
+            description="um, located in Paris, France. It's housed in the Louvre Palace, a 160,000 square meter building that was once a 12th-century fortress and a royal residence for French kings. ", 
+            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/image_effelTower.jpg?raw=true", 
+            destination_id=1
         ),
         # ... Add more 
     ]

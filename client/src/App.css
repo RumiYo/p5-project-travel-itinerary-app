@@ -96,19 +96,26 @@ img#destinationDetailImage {
   align-items: center;  
 }
 
-/* popularSpotsList under Destination */
+/* popularSpotsList under DestinationDetails */
+div.allPopularSpot {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  overflow: hidden; /* Clear floats within this container */
+}
+
 div.popularSpotsList {
   background-color: #EDDCD2;
   align-items: center;
   margin:4px;
   text-align: center;
   display: block;
-  float: left;
   padding: 15px 0.5% 5px 0.5%;
   width: 45%;
   min-width: 110px;
   height:350px;
   overflow: auto;
+  float: left;
 }
 img.popularSpotsListImage {
   max-width: 90%;
@@ -116,3 +123,23 @@ img.popularSpotsListImage {
   align-items: center;
   margin-top: 2px;
 }
+
+.allItineraries {
+  display: block;
+  width: 100%;
+  margin-bottom: 20px; 
+}
+
+div.itinerariesList {
+  background-color: #EDDCD2;
+  align-items: center;
+  margin:4px;
+  text-align: left;
+  display: block;
+  padding: 15px 5%;
+  width: 80%;
+  min-width: 110px;
+  overflow: auto;
+  clear: both; 
+}
+
