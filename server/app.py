@@ -3,7 +3,7 @@
 # Standard library imports
 
 # Remote library imports
-from flask import make_response, request, session
+from flask import make_response, request, session, jsonify
 from flask_restful import Resource
 
 # Local imports
@@ -152,18 +152,31 @@ class ItineraryById(Resource):
             return {'error': 'Itinerary not found'}, 404
         return make_response(itinerary.to_dict(), 200)
 
-    def patch(self,id):
-        itinerary = Itinerary.query.filter(Itinerary.id==id).first()
+    def patch(self, id):
+        itinerary = Itinerary.query.filter(Itinerary.id == id).first()
         if not itinerary: 
             return {'error': 'Itinerary not found'}, 404
 
         json_data = request.get_json()
-        for key, value in json_data.items():
-            if hasattr(itinerary, key):
-                setattr(itinerary, key, value)
-            else:
-                return {'error': f'Invalid field: {key}'}, 400
-        
+        updatable_fields = ['name', 'start_date', 'end_date', 'description']
+
+        try:
+            if 'start_date' in json_data:
+                json_data['start_date'] = datetime.strptime(json_data['start_date'], '%Y-%m-%d').date()
+            if 'end_date' in json_data:
+                json_data['end_date'] = datetime.strptime(json_data['end_date'], '%Y-%m-%d').date()
+        except ValueError:
+            return jsonify({"error": "Invalid date format. Expected YYYY-MM-DD."}), 400
+
+        if 'name' in json_data:
+            itinerary.name = json_data['name']
+        if 'start_date' in json_data:
+            itinerary.start_date = json_data['start_date']
+        if 'end_date' in json_data:
+            itinerary.end_date = json_data['end_date']
+        if 'description' in json_data:
+            itinerary.description = json_data['description'] 
+
         db.session.commit()
         return make_response(itinerary.to_dict(), 200)
 

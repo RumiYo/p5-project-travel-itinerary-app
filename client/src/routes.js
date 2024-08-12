@@ -5,6 +5,7 @@ import Destinations from "./pages/Destinations";
 import DestinationDetails from "./pages/DestinationDetails";
 import Itineraries from "./pages/Itineraries";
 import AddItinerary from "./components/Itineraries/AddItinerary";
+import EditItinerary from "./components/Itineraries/EditItinerary";
 import Profile from "./pages/Profile";
 import ProfileEdit from "./components/Profile/ProfileEdit";
 import ProfileDelete from "./components/Profile/ProfileDelete";
@@ -44,6 +45,10 @@ const routes = [
                 path: "/itineraries/:id",
                 element: <ItineraryDetails />,
                 children: [
+                    {
+                        path: "/itineraries/:id/edit",
+                        element: <EditItinerary />,  
+                    },
                     {
                         path: "/itineraries/:id/activities",
                         element: <AddActivities />,  

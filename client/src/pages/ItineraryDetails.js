@@ -43,6 +43,9 @@ function ItineraryDetails(){
         setActivities(activities.filter((a) => a.id !== activityId))
     }
 
+    function updateItinerary(itinerary){
+        setItinerary(itinerary)
+    }
 
     if (!itinerary) {
         return <div>Loading...</div>;
@@ -68,7 +71,9 @@ function ItineraryDetails(){
                 )}
                 <Link to={`/itineraries/${itinerary.id}/activities`}>Let's plan activities</Link>
                 <br/>
-                <Outlet context={{itinerary:itinerary, updateActivites:updateActivites}} />
+                <Link to={`/itineraries/${itinerary.id}/edit`}>Edit this Itinerary</Link>
+                <br/>
+                <Outlet context={{itinerary:itinerary, updateItinerary:updateItinerary, updateActivites:updateActivites}} />
             </div>
             <br/>
             <button onClick={deleteItinerary} className="buttons">Delete this Itinerary</button>

@@ -17,15 +17,14 @@ function AddItinerary(){
           .required("Must enter Itinerary name")
           .max(40, "Itinerary name must be at most 40 characters long"),
         start_date: yup.date()
-          .required("Must enter the activity date and time")
-          .min(new Date(), "Date must be in the future")
+          .required("Must enter Start Date")
+          .min(new Date(), "Start Date must be in the future")
           .typeError("Invalid date format"),
         end_date: yup.date()
-          .required("Must enter the activity date and time")
+          .required("Must enter End Date")
           .min(yup.ref('start_date'), "End date must be later than start date")
           .typeError("Invalid date format"),
-        description: yup.string()
-          .required("Must enter the activity description"),
+        description: yup.string(),
         user_id: yup.number()
           .integer()
           .required("User ID is required"),
@@ -56,16 +55,16 @@ function AddItinerary(){
             end_date: formatteEndDate
           }),
       })
-        .then((response) => {
+        .then((r) => {
           setIsLoading(false);
-          if (response.ok) {
-            response.json().then((newItinerary) => {
+          if (r.ok) {
+            r.json().then((newItinerary) => {
                 setItinerary(newItinerary);
                 setMessage("Itinerary added successfully!");
                 navigate(`/itineraries/${newItinerary.id}`);
             });
           } else {
-            response.json().then((error) => {
+            r.json().then((error) => {
               setMessage(error.error);
             });
           }
@@ -121,7 +120,7 @@ function AddItinerary(){
           )}
           <br />
           <label htmlFor="description">Description:  </label>
-          <input
+          <textarea
             type="text"
             id="description"
             autoComplete="off"
