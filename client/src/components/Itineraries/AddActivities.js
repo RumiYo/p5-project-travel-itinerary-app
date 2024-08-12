@@ -3,24 +3,23 @@ import { useState, useEffect, useContext } from "react";
 import { useFormik } from 'formik';
 import * as yup from "yup";
 import ItineraryContext from "../../ItineraryContext"; 
+import DestinationContext from "../../DestinationContext";
 
 function AddActivities() {
   const { addNewActivity } = useOutletContext(); 
   const { itinerary } = useContext(ItineraryContext); 
+  const { sortedDestinations, setSortedDestinations } = useContext(DestinationContext); 
 
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState(""); 
-  const [destinations, setDestinations] = useState([]);
-  const [sortedDestinations, setSortedDestinations] = useState([]);
 
   useEffect(() => {
     fetch('/destinations')
       .then((response) => response.json())
       .then((destinations) => {
         const sorted = destinations.sort((a, b) => a.city.localeCompare(b.city));
-        setDestinations(sorted);
         setSortedDestinations(sorted);
       });
   }, []);
@@ -155,7 +154,7 @@ function AddActivities() {
         {message && <div style={{ color: 'green' }}>{message}</div>}
       </form>
       <br />
-            <Link to={`/itineraries/${itinerary.id}`}>Go back to Itinerary</Link>
+      <Link to={`/itineraries/${itinerary.id}`}>Go back to Itinerary</Link>
     </div>
   );
 }

@@ -9,10 +9,8 @@ function ItineraryDetails(){
 
     const { itinerary, setItinerary } = useContext(ItineraryContext);
 
-    // const [ itinerary, setItinerary ] = useState(null)
     const [ activities, setActivities ] = useState([])
     const [ sortedActivities, setSortedActivities ] = useState([])   
-    const [ message , setMessage] = useState("") 
  
     useEffect(() => {
         fetch(`/itineraries/${parseInt(params.id)}`)
@@ -26,7 +24,7 @@ function ItineraryDetails(){
             })
           } 
         })
-    }, [params.id]);
+    }, [params.id, setItinerary]);
 
     function deleteItinerary(){
         fetch(`/itineraries/${params.id}`,{
@@ -35,9 +33,7 @@ function ItineraryDetails(){
         .then((r) => {
             if(r.ok){
                 navigate('/itineraries')
-            } else {
-                setMessage("Failed to delete itinerary.")
-            }
+            } 
         })
     }
 

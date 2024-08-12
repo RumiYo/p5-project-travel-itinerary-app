@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Outlet, useOutletContext, Link } from "react-router-dom";
+import React, { useEffect, useContext } from "react";
 import Destination from "../components/Destinations/Destination"
+import DestinationContext from "../DestinationContext";
 
 function Destinations(){
 
-    const [destinations, setDestinations] = useState([]);
-    const { user } = useOutletContext();
+    const { destinations, setDestinations } = useContext(DestinationContext);
 
     useEffect(()=>{
         fetch('/destinations')
@@ -13,12 +12,9 @@ function Destinations(){
         .then(setDestinations);
     }, [])
 
-
     return (
         <div className="mainPages">
             <h2>Popular Cities</h2>
-            {/* <Link to="/destinations/add">Do you want to add your favorite destination city?</Link> */}
-            <Outlet context={{destinationList: destinations, user:user }}/>
             <div className="allDestinations">
                 {destinations.map((d) => (
                     <Destination destination={d} key={d.id}/>

@@ -3,23 +3,22 @@ import { Link, useParams, useNavigate, useOutletContext } from "react-router-dom
 import { useFormik } from 'formik';
 import * as yup from "yup";
 import ItineraryContext from "../../ItineraryContext"; 
+import DestinationContext from "../../DestinationContext";
 
 function EditActivity(){
-    const { activities, updateActivities } = useOutletContext(); 
+    const { updateActivities } = useOutletContext(); 
     const { itinerary } = useContext(ItineraryContext); 
+    const { sortedDestinations, setSortedDestinations } = useContext(DestinationContext); 
     const { activityId } = useParams();
     const navigate = useNavigate();
 
-    const [destinations, setDestinations] = useState([]);
-    const [sortedDestinations, setSortedDestinations] = useState([]);
   
     useEffect(() => {
       fetch('/destinations')
         .then((response) => response.json())
         .then((destinations) => {
-          const sorted = destinations.sort((a, b) => a.city.localeCompare(b.city));
-          setDestinations(sorted);
-          setSortedDestinations(sorted);
+            const sorted = destinations.sort((a, b) => a.city.localeCompare(b.city));
+            setSortedDestinations(sorted);
         });
     }, []);
 

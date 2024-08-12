@@ -1,6 +1,5 @@
-import { useParams, Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useContext } from "react";
-import EditActivity from "./EditActivity";
 import ItineraryContext from "../../ItineraryContext"; 
 
 function Activity({  activity, deleteActivity, updateActivites }){

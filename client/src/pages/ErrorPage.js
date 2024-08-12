@@ -7,6 +7,7 @@ function ErrorPage(){
     return (
         <div  className="mainPages">
             <h1>Woops! Something went wrong!</h1>
+            <p>{error}</p>
         </div>
     )
 }

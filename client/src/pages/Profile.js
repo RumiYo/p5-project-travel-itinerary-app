@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useOutletContext, Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -16,7 +16,7 @@ function Profile(){
           })
           }
         })
-      }, []);
+      }, [user, updateUser]);
 
 
     if (!user) {

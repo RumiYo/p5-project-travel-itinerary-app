@@ -1,12 +1,12 @@
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { useFormik } from 'formik';
 import * as yup from "yup";
 import ItineraryContext from '../../ItineraryContext';
 
 function AddItinerary(){
     const navigate = useNavigate();
-    const { itinerary, setItinerary } = useContext(ItineraryContext);
+    const { setItinerary } = useContext(ItineraryContext);
 
     const { user } = useOutletContext();
 

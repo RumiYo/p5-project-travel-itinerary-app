@@ -23,7 +23,7 @@ function Itineraries(){
                 data.itineraries.filter(i => new Date(i.end_date) < currentDate)
             )
         });
-    }, [user])
+    }, [user, setItineraries])
 
 
     return (

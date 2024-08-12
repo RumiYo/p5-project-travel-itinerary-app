@@ -1,14 +1,15 @@
 import { useParams, useOutletContext, Link  } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import StarRating from '../components/Destinations/StarRating';
 import ReviewForm from "../components/Destinations/ReviewForm";
+import DestinationContext from "../DestinationContext";
 
 function DestinationDetails(){
 
+    const { destination, setDestination } = useContext(DestinationContext);
     const params = useParams();
     const { user } = useOutletContext();
     const [ error, setError] = useState("")
-    const [ destination, setDestination ] = useState(null)
     const [ popularSpots, setPopularSpots ] = useState([])
     const [ reviews, setReviews ] = useState([])
 
@@ -21,7 +22,8 @@ function DestinationDetails(){
             setError("Failed to fetch destination details.");
           }
         })
-      }, [params.id]);
+        .catch(() => setError("An error occurred while fetching data."));
+      }, [params.id, setDestination]);
 
     useEffect(() => {
         if (destination) {  
@@ -34,7 +36,7 @@ function DestinationDetails(){
         setReviews([...reviews, newReview]);
     };
 
-    if (!destination) {
+    if (!destination && !error) {
         return <div>Loading...</div>;
     }
     return (
