@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import * as yup from "yup";
 
 function AddActivities() {
-  const { itinerary, updateActivites } = useOutletContext(); 
+  const { itinerary, addNewActivity } = useOutletContext(); 
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -67,7 +67,7 @@ function AddActivities() {
           setIsLoading(false);
           if (response.ok) {
             response.json().then((newActivity) => {
-              updateActivites(newActivity);
+              addNewActivity(newActivity);
               setMessage("Activity added successfully!");
               navigate(`/itineraries/${itinerary.id}`);
             });
@@ -81,6 +81,10 @@ function AddActivities() {
   });
 
   const { handleChange, handleBlur, handleSubmit, touched, errors, values } = formik;
+
+  if (!itinerary) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="addItem">

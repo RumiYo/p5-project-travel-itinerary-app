@@ -71,7 +71,7 @@ function EditItinerary(){
                     Name:
                     <input
                         type="text"
-                        name="name"
+                        id="name"
                         value={values.name}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -85,7 +85,7 @@ function EditItinerary(){
                     Start Date:
                     <input
                         type="date"
-                        name="start_date"
+                        id="start_date"
                         value={values.start_date}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -99,7 +99,7 @@ function EditItinerary(){
                     End Date:
                     <input
                         type="date"
-                        name="end_date"
+                        id="end_date"
                         value={values.end_date}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -112,7 +112,7 @@ function EditItinerary(){
                 <label>
                     Description:
                     <textarea
-                        name="description"
+                        id="description"
                         value={values.description || ""}
                         onChange={handleChange}
                         onBlur={handleBlur}

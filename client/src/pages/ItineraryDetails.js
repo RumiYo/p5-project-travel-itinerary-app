@@ -21,7 +21,7 @@ function ItineraryDetails(){
                 const sorted = itinerary.activities.sort((a, b) => a.date.localeCompare(b.date));
                 setSortedActivities(sorted)
             })
-          }
+          } 
         })
     }, [params.id]);
 
@@ -38,12 +38,27 @@ function ItineraryDetails(){
         })
     }
 
-    function updateActivites(newActivity){
-        setActivities([...activities, newActivity]);
+    function addNewActivity(newActivity){
+        const newActivities = [...activities, newActivity]
+        setActivities(newActivities);
+        const sorted = newActivities.sort((a, b) => a.date.localeCompare(b.date))
+        setSortedActivities(sorted)
     }
 
+    function updateActivities(updatedActivity) {
+        const newActivities = activities.map((a) =>
+            a.id === updatedActivity.id ? updatedActivity : a
+        );
+        setActivities(newActivities);
+        const sorted = newActivities.sort((a, b) => a.date.localeCompare(b.date));
+        setSortedActivities(sorted);
+    }
+    
     function deleteActivity(activityId){
-        setActivities(activities.filter((a) => a.id !== activityId))
+        const newActivities = activities.filter((a) => a.id !== activityId)
+        setActivities(newActivities)
+        const sorted = newActivities.sort((a, b) => a.date.localeCompare(b.date))
+        setSortedActivities(sorted)
     }
 
     function updateItinerary(itinerary){
@@ -67,7 +82,7 @@ function ItineraryDetails(){
             <div id="activitiesList">
                 {sortedActivities.length > 0 ? (
                     sortedActivities.map((a) => 
-                        <Activity activity={a} deleteActivity={deleteActivity} key={a.id}/>
+                        <Activity itinerary={itinerary} activity={a} deleteActivity={deleteActivity} key={a.id}/>
                     )
                 ) : (
                     <p>No activities are planned yet.</p>
@@ -76,7 +91,7 @@ function ItineraryDetails(){
                 <br/>
                 <Link to={`/itineraries/${itinerary.id}/edit`}>Edit this Itinerary</Link>
                 <br/>
-                <Outlet context={{itinerary:itinerary, updateItinerary:updateItinerary, updateActivites:updateActivites}} />
+                <Outlet context={{itinerary: itinerary, activities: activities, updateItinerary: updateItinerary, addNewActivity: addNewActivity, updateActivities:updateActivities}} />
             </div>
             <br/>
             <button onClick={deleteItinerary} className="buttons">Delete this Itinerary</button>

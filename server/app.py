@@ -289,12 +289,23 @@ class ActivityById(Resource):
             return {'error': 'Activity not found'}, 404
 
         json_data = request.get_json()
-        for key, value in json_data.items():
-            if hasattr(activity, key):
-                setattr(activity, key, value)
-            else:
-                return {'error': f'Invalid field: {key}'}, 400
+
+        try:
+            if 'date' in json_data:
+                json_data['date'] = datetime.strptime(json_data['date'], '%Y-%m-%d').date()
+        except ValueError:
+            return jsonify({"error": "Invalid date format. Expected YYYY-MM-DD."}), 400
         
+        if 'name' in json_data:
+            activity.name = json_data['name']
+        if 'date' in json_data:
+            activity.date = json_data['date']
+        if 'description' in json_data:
+            activity.description = json_data['description'] 
+        if 'destination_id' in json_data:
+            activity.destination_id = json_data['destination_id'] 
+
+        print(activity)
         db.session.commit()
         return make_response(activity.to_dict(), 200)
 

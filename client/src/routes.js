@@ -11,13 +11,13 @@ import ProfileEdit from "./components/Profile/ProfileEdit";
 import ProfileDelete from "./components/Profile/ProfileDelete";
 import ItineraryDetails from "./pages/ItineraryDetails";
 import AddActivities from "./components/Itineraries/AddActivities";
-
+import EditActivity from "./components/Itineraries/EditActivity";
 
 const routes = [
     {
         path: "/",
         element: <App />,
-        errorElement: <ErrorPage/>,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: "/",
@@ -29,48 +29,52 @@ const routes = [
             },
             {
                 path: "/destinations/:id",
-                element: <DestinationDetails />
+                element: <DestinationDetails />,
             },
             {
                 path: "/itineraries",
                 element: <Itineraries />,
                 children: [
                     {
-                        path: "/itineraries/add",
-                        element: <AddItinerary />,                         
-                    }
-                ]
+                        path: "add",
+                        element: <AddItinerary />,
+                    },
+                ],
             },
             {
                 path: "/itineraries/:id",
                 element: <ItineraryDetails />,
                 children: [
                     {
-                        path: "/itineraries/:id/edit",
-                        element: <EditItinerary />,  
+                        path: "edit",
+                        element: <EditItinerary />,
                     },
                     {
-                        path: "/itineraries/:id/activities",
-                        element: <AddActivities />,  
-                    }
-                ]
+                        path: "activities",
+                        element: <AddActivities />,
+                    },
+                    {
+                        path: "activities/:activityId",
+                        element: <EditActivity />,
+                    },
+                ],
             },
             {
                 path: "/profile",
                 element: <Profile />,
                 children: [
                     {
-                        path: "/profile/edit",
-                        element: <ProfileEdit />
+                        path: "edit",
+                        element: <ProfileEdit />,
                     },
                     {
-                        path: "/profile/delete",
-                        element: <ProfileDelete />
-                    }
-                ]
-            }
-        ]
-    }
+                        path: "delete",
+                        element: <ProfileDelete />,
+                    },
+                ],
+            },
+        ],
+    },
 ];
 
 export default routes;
