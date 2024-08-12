@@ -1,12 +1,15 @@
-import { useParams, Link, Outlet, useOutletContext, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useParams, Link, Outlet, useNavigate } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
 import Activity from "../components/Itineraries/Activity";
+import ItineraryContext from '../ItineraryContext';  
 
 function ItineraryDetails(){
     const params = useParams();
     const navigate = useNavigate()
 
-    const [ itinerary, setItinerary ] = useState(null)
+    const { itinerary, setItinerary } = useContext(ItineraryContext);
+
+    // const [ itinerary, setItinerary ] = useState(null)
     const [ activities, setActivities ] = useState([])
     const [ sortedActivities, setSortedActivities ] = useState([])   
     const [ message , setMessage] = useState("") 
@@ -82,11 +85,12 @@ function ItineraryDetails(){
             <div id="activitiesList">
                 {sortedActivities.length > 0 ? (
                     sortedActivities.map((a) => 
-                        <Activity itinerary={itinerary} activity={a} deleteActivity={deleteActivity} key={a.id}/>
+                        <Activity activity={a} deleteActivity={deleteActivity} key={a.id}/>
                     )
                 ) : (
                     <p>No activities are planned yet.</p>
                 )}
+                <br/>
                 <Link className="buttons" to={`/itineraries/${itinerary.id}/activities`}>Let's plan activities</Link>
                 <Link className="buttons" to={`/itineraries/${itinerary.id}/edit`}>Edit this Itinerary</Link>
                 <button onClick={deleteItinerary} className="buttons">Delete this Itinerary</button>

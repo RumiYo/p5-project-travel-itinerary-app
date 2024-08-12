@@ -1,16 +1,17 @@
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useFormik } from 'formik';
 import * as yup from "yup";
+import ItineraryContext from '../../ItineraryContext';
 
 function AddItinerary(){
     const navigate = useNavigate();
+    const { itinerary, setItinerary } = useContext(ItineraryContext);
 
     const { user } = useOutletContext();
 
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState(""); 
-    const [itinerary, setItinerary] = useState([]);
 
     const formSchema = yup.object().shape({
         name: yup.string()
@@ -51,7 +52,7 @@ function AddItinerary(){
         },
         body: JSON.stringify({
             ...values,
-            srart_date: formattedStartDate,
+            start_date: formattedStartDate,
             end_date: formatteEndDate
           }),
       })
@@ -135,7 +136,8 @@ function AddItinerary(){
           <input type="submit" className="buttons" disabled={isLoading} />
           {message && <div style={{ color: 'green' }}>{message}</div>}
         </form>
-        <Link to={'/itineraries'}>Close</Link>
+        <br/>
+        <Link to={'/itineraries'}>Go back to Itineraries</Link>
       </div>
       
     );

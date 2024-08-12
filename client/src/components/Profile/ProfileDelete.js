@@ -24,7 +24,7 @@ function ProfileDelete(){
      }
 
     return (
-        <div id="profileChange">
+        <div id="profileChange"  className="addItem">
             <h3>Delete Account</h3>
             <form onSubmit={handleSubmit}>
             <p>Are you sure you want to delete your account?</p>

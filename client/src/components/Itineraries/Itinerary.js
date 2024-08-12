@@ -5,6 +5,10 @@ import '../../App.css';
 
 function Itinerary({ itinerary }){
 
+    if (!itinerary) {
+        return <div>Loading itinerary...</div>;
+    }
+
     return (
         <div className="itinerariesList">
             <h3>{itinerary.name}</h3>

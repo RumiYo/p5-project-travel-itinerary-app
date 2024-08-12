@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
-import { useParams, useNavigate, useOutletContext } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useFormik } from 'formik';
 import * as yup from "yup";
+import ItineraryContext from "../../ItineraryContext"; 
 
 function EditItinerary(){
-    const { updateItinerary } = useOutletContext(); 
+    const { itinerary, setItinerary, updateItinerary } = useContext(ItineraryContext); 
+
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -52,6 +54,7 @@ function EditItinerary(){
                 if (r.ok) {
                     r.json().then((updatedItinerary) => { 
                     updateItinerary(updatedItinerary) 
+                    setItinerary(updatedItinerary)
                     navigate(`/itineraries/${id}`);
                 });
                 } else {
@@ -125,6 +128,8 @@ function EditItinerary(){
                 <button type="submit" className="buttons">Update Itinerary</button>
                 {errors.submit ? <p>{errors.submit}</p> : null}
             </form>
+            <br />
+            <Link to={`/itineraries/${itinerary.id}`}>Go back to Itinerary</Link>
         </div>
     );
 }

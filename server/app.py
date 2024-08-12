@@ -134,6 +134,7 @@ class Itineraries(Resource):
             name=json_data.get('name'),
             start_date=start_date_obj,
             end_date=end_date_obj,
+            description=json_data.get('description'),
             user_id=json_data.get('user_id'),
         )
         db.session.add(new_record)

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Outlet, useOutletContext, Link } from "react-router-dom";
 import Itinerary from "../components/Itineraries/Itinerary"
+import ItineraryContext from '../ItineraryContext';  
 
 function Itineraries(){
 
-    const [itineraries, setItineraries] = useState([]);
+    const { itineraries, setItineraries } = useContext(ItineraryContext);
     const [upcomingItineraries, setUpcomingItineraries] = useState([]);
     const [pastItineraries, setPastItineraries] = useState([]);
     const { user } = useOutletContext();

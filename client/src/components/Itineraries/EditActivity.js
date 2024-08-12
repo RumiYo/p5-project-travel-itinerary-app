@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
-import { useParams, useNavigate, useOutletContext } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { Link, useParams, useNavigate, useOutletContext } from "react-router-dom";
 import { useFormik } from 'formik';
 import * as yup from "yup";
+import ItineraryContext from "../../ItineraryContext"; 
 
 function EditActivity(){
-    const { activities, updateActivities, itinerary } = useOutletContext(); 
+    const { activities, updateActivities } = useOutletContext(); 
+    const { itinerary } = useContext(ItineraryContext); 
     const { activityId } = useParams();
     const navigate = useNavigate();
 
@@ -149,6 +151,8 @@ function EditActivity(){
                 <input type="submit" className="buttons" />
                 {errors.submit ? <p>{errors.submit}</p> : null}      
             </form>
+            <br />
+            <Link to={`/itineraries/${itinerary.id}`}>Go back to Itinerary</Link>
         </div>
     );
 }

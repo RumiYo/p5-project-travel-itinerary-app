@@ -1,10 +1,13 @@
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useFormik } from 'formik';
 import * as yup from "yup";
+import ItineraryContext from "../../ItineraryContext"; 
 
 function AddActivities() {
-  const { itinerary, addNewActivity } = useOutletContext(); 
+  const { addNewActivity } = useOutletContext(); 
+  const { itinerary } = useContext(ItineraryContext); 
+
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -151,6 +154,8 @@ function AddActivities() {
         <input type="submit" className="buttons" disabled={isLoading} />
         {message && <div style={{ color: 'green' }}>{message}</div>}
       </form>
+      <br />
+            <Link to={`/itineraries/${itinerary.id}`}>Go back to Itinerary</Link>
     </div>
   );
 }

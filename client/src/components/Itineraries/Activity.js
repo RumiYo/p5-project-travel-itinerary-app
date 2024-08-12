@@ -1,7 +1,10 @@
 import { useParams, Link, Outlet } from "react-router-dom";
+import { useContext } from "react";
 import EditActivity from "./EditActivity";
+import ItineraryContext from "../../ItineraryContext"; 
 
-function Activity({ itinerary, activity, deleteActivity, updateActivites }){
+function Activity({  activity, deleteActivity, updateActivites }){
+    const { itinerary } = useContext(ItineraryContext); 
 
     function handleDeleteActivity (activityId){
         console.log("Delete", activityId)
@@ -19,8 +22,7 @@ function Activity({ itinerary, activity, deleteActivity, updateActivites }){
             <h4>{activity.date} {activity.name}</h4>
             <small>{activity.destination.city} ({activity.destination.country})</small>
             <p>{activity.description}</p>
-            <Link to={`/itineraries/${itinerary.id}/activities/${activity.id}`}>Edit activities</Link>
-            <br />
+            <Link to={`/itineraries/${itinerary.id}/activities/${activity.id}`}  className="buttons">Edit activities</Link>
             <button onClick={() => handleDeleteActivity(activity.id)}  className="buttons">Delete this Activity</button>
         </div>
     )
