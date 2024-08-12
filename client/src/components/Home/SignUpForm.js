@@ -60,7 +60,7 @@ function SignUpForm({ onSignUp }){
     return (
         <div>
             <h2>Signup Form</h2>
-            <form className="LoginSignupForms" onSubmit={handleSubmit}>
+            <form className="addItem" onSubmit={handleSubmit}>
               <p>Please fill out all the information below:</p>
                 <label htmlFor="first_name">First Name:  </label>
                 <input

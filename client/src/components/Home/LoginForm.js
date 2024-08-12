@@ -50,7 +50,7 @@ function LoginForm({ onLogin }){
     return (
         <div >
             <h2>Login</h2>
-            <form className="LoginSignupForms" onSubmit={formik.handleSubmit}>
+            <form className="addItem" onSubmit={formik.handleSubmit}>
                 <p>Type your UserName and Password:</p>
                 <label htmlFor="username">User Name: </label>
                 <input
@@ -60,7 +60,7 @@ function LoginForm({ onLogin }){
                     value={formik.values.username}
                     onChange={formik.handleChange}
                 />
-
+                <br/>
                 <label htmlFor="password">   Password: </label>
                 <input
                     type="password"

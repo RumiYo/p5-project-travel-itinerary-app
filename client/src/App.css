@@ -7,8 +7,8 @@
 body {
   margin-top: 50px;
   align-items: center;  
-  background-color: #F0EFEB;
-  color: #69381E;
+  background-color: #F8EDEB;
+  color: #944738;
 }
 
 main {
@@ -34,13 +34,9 @@ main {
   align-items: center;  
   text-align: center; 
 }
-.LoginSignupForms{
-  background-color: #EDDCD2;
-  padding: 5px;
-}
 
 .buttons {
-  background-color: #CB997E; /* Green background */
+  background-color: #FFB5A7; /* Green background */
   border: none; /* Remove borders */
   color: white; /* White text */
   padding: 10px 20px; /* Some padding */
@@ -55,19 +51,20 @@ main {
 }
     
 .buttons:hover {
-  background-color: #985D3D;
+  background-color: #C8472D;
 }
 
-.buttons:disabled {
-  background-color: #A6A6A6;
-  color: #EDDCD2; 
+.addItem{
+  margin: 20px 10px 50px 10px;
+  padding: 10px 40px;
+  position: float;
+  background-color: #FAE1DD;
 }
-
 
 /* destinationList */
 
 div.destinationList {
-  background-color: #EDDCD2;
+  background-color: #FAE1DD;
   align-items: center;
   margin:4px;
   text-align: center;
@@ -136,7 +133,7 @@ img.popularSpotsListImage {
 }
 
 div.itinerariesList {
-  background-color: #EDDCD2;
+  background-color: #FAE1DD;
   align-items: center;
   margin:4px;
   text-align: left;
@@ -161,12 +158,7 @@ div.itinerariesList {
   clear: both; 
 }
 
-.addItem{
-  margin: 20px 10px 50px 10px;
-  padding: 10px 40px;
-  position: float;
-  background-color: #FFF1E6;
-}
+
 
 input[type="text"] {
   width: 50%;
