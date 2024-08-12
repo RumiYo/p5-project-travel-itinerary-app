@@ -1,8 +1,10 @@
 import { useParams, Link, Outlet, useOutletContext, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Activity from "../components/Activity";
 
 function ItineraryDetails(){
     const params = useParams();
+    const navigate = useNavigate()
 
     const [ itinerary, setItinerary ] = useState(null)
     const [ activities, setActivities ] = useState([])
@@ -20,24 +22,26 @@ function ItineraryDetails(){
         })
     }, [params.id]);
 
+    function deleteItinerary(){
+        fetch(`/itineraries/${params.id}`,{
+            method: 'DELETE',
+        })
+        .then((r) => {
+            if(r.ok){
+                navigate('/itineraries')
+            } else {
+                setMessage("Failed to delete itinerary.")
+            }
+        })
+    }
+
     function updateActivites(newActivity){
         setActivities([...activities, newActivity]);
     }
 
-    function handleDeleteActivity (activityId){
-        console.log("Delete", activityId)
-        fetch(`/activities/${activityId}`,{
-            method: "DELETE",
-        }).then((r) => {
-            if(r.ok){
-                setActivities(activities.filter((a) => a.id !== activityId));
-            } else {
-                r.json().then((err) => setMessage(err.error));
-                console.log(message)
-            }
-        });
+    function deleteActivity(activityId){
+        setActivities(activities.filter((a) => a.id !== activityId))
     }
-
 
 
     if (!itinerary) {
@@ -55,15 +59,10 @@ function ItineraryDetails(){
             <h5>Activities</h5>
             
             <div id="activitiesList">
-                {activities.length >0 ? (
-                    activities.map((a) => (
-                        <div key={a.id} className="activity">
-                            <h4 key={a.id}>{a.date} {a.name}</h4>
-                            <small>{a.destination.city} ({a.destination.country})</small>
-                            <p>{a.description}</p>
-                            <button onClick={() => handleDeleteActivity(a.id)}>Delete</button>
-                        </div>
-                    ))
+                {activities.length > 0 ? (
+                    activities.map((a) => 
+                        <Activity activity={a} deleteActivity={deleteActivity} key={a.id}/>
+                    )
                 ) : (
                     <p>No activities are planned yet.</p>
                 )}
@@ -72,6 +71,8 @@ function ItineraryDetails(){
                 <Outlet context={{itinerary:itinerary, updateActivites:updateActivites}} />
             </div>
             <br/>
+            <button onClick={deleteItinerary} className="buttons">Delete this Itinerary</button>
+            <br/><br/>
             <Link to={`/itineraries`}>Go back to Itineraries</Link>
         </div>
     )

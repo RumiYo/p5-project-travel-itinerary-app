@@ -10,8 +10,10 @@ function LoginForm({ onLogin }){
     const [isLoading, setIsLoading] = useState(false);
 
     const formSchema = yup.object().shape({
-        username: yup.string().required("Must enter a User Name").max(10),
-        password: yup.string().required("Must enter password").max(15),
+        username: yup.string().required("Must enter a User Name").max(10)
+                .matches(/^\S*$/, "Username cannot contain spaces"),
+        password: yup.string().required("Must enter password").max(15)
+                .matches(/^\S*$/, "Username cannot contain spaces"),
       });
 
     
