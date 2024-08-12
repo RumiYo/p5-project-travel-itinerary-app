@@ -1,6 +1,6 @@
 import { useParams, Link, Outlet, useOutletContext, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Activity from "../components/Activity";
+import Activity from "../components/Itineraries/Activity";
 
 function ItineraryDetails(){
     const params = useParams();

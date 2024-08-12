@@ -1,4 +1,3 @@
-
 import { Link, useOutletContext, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -23,8 +22,6 @@ function ProfileDelete(){
             }
         })
      }
-
-    
 
     return (
         <div id="profileChange">

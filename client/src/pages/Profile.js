@@ -3,7 +3,7 @@ import { useOutletContext, Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 
-function UserPage(){
+function Profile(){
 
     const { user, updateUser } = useOutletContext(); 
 
@@ -43,4 +43,4 @@ function UserPage(){
     )
 }
 
-export default UserPage;
+export default Profile;

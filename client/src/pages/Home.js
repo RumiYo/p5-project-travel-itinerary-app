@@ -1,5 +1,5 @@
 import { useOutletContext } from "react-router-dom";
-import homePhoto from "../components/home_photo.jpg"
+import homePhoto from "../components/Home/home_photo.jpg"
 
 function Home(){
     const { user } = useOutletContext();

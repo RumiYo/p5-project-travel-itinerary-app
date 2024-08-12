@@ -1,14 +1,15 @@
 import App from "./App";
 import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
-import DestinationsIndex from "./pages/DestinationsIndex";
+import Destinations from "./pages/Destinations";
 import DestinationDetails from "./pages/DestinationDetails";
 import Itineraries from "./pages/Itineraries";
-import UserPage from "./pages/UserPage";
-import ProfileEdit from "./components/ProfileEdit";
-import ProfileDelete from "./components/ProfileDelete";
+import AddItinerary from "./components/Itineraries/AddItinerary";
+import Profile from "./pages/Profile";
+import ProfileEdit from "./components/Profile/ProfileEdit";
+import ProfileDelete from "./components/Profile/ProfileDelete";
 import ItineraryDetails from "./pages/ItineraryDetails";
-import AddActivities from "./components/AddActivities";
+import AddActivities from "./components/Itineraries/AddActivities";
 
 
 const routes = [
@@ -23,7 +24,7 @@ const routes = [
             },
             {
                 path: "/destinations",
-                element: <DestinationsIndex />,
+                element: <Destinations />,
             },
             {
                 path: "/destinations/:id",
@@ -32,6 +33,12 @@ const routes = [
             {
                 path: "/itineraries",
                 element: <Itineraries />,
+                children: [
+                    {
+                        path: "/itineraries/add",
+                        element: <AddItinerary />,                         
+                    }
+                ]
             },
             {
                 path: "/itineraries/:id",
@@ -45,7 +52,7 @@ const routes = [
             },
             {
                 path: "/profile",
-                element: <UserPage />,
+                element: <Profile />,
                 children: [
                     {
                         path: "/profile/edit",

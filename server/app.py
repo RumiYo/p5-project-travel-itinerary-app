@@ -116,12 +116,24 @@ class Itineraries(Resource):
 
     def post(self):
         json_data = request.get_json()
-        if not json_data.get('name') or not json_data.get('user_id'):
-            return {"error": "Itinerary name and userID cannot be empty"}, 422 
+
+        try:
+            start_date_obj = datetime.strptime(json_data.get('start_date'), '%Y-%m-%d').date()
+            end_date_obj = datetime.strptime(json_data.get('end_date'), '%Y-%m-%d').date()
+        except ValueError:
+            return jsonify({"error": "Invalid date format. Expected YYYY-MM-DD."}), 400
+        
+        missing_fields = []
+        for field in ['name', 'user_id']:
+            if not json_data.get(field):
+                missing_fields.append(field)
+        if missing_fields:
+            return jsonify({"error": f"Missing required fields: {', '.join(missing_fields)}"}), 422
+
         new_record = Itinerary(
             name=json_data.get('name'),
-            start_date=json_data.get('start_date'),
-            end_date=json_data.get('end_date'),
+            start_date=start_date_obj,
+            end_date=end_date_obj,
             user_id=json_data.get('user_id'),
         )
         db.session.add(new_record)

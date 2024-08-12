@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useOutletContext, Link } from "react-router-dom";
-import Destination from "../components/Destination"
+import Destination from "../components/Destinations/Destination"
 
-function DestinationsIndex(){
+function Destinations(){
 
     const [destinations, setDestinations] = useState([]);
     const { user } = useOutletContext();
@@ -29,4 +29,4 @@ function DestinationsIndex(){
     )
 }
 
-export default DestinationsIndex;
+export default Destinations;

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import LoginForm from "../components/LoginForm";
-import SignUpForm from "../components/SignUpForm";
-import homePhoto from "../components/home_photo.jpg"
+import LoginForm from "../components/Home/LoginForm";
+import SignUpForm from "../components/Home/SignUpForm";
+import homePhoto from "../components/Home/home_photo.jpg"
 
 
 function Login({ onLogin }){

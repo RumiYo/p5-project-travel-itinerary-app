@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useOutletContext, Link } from "react-router-dom";
-import Itinerary from "../components/Itinerary"
+import Itinerary from "../components/Itineraries/Itinerary"
 
 function Itineraries(){
 
@@ -27,8 +27,8 @@ function Itineraries(){
 
     return (
         <div>
-            <h2>Itineraries List</h2>
-            {/* <Link to="/itineraries/add">Do you want to plan another trip?</Link> */}
+            <h2>Itineraries</h2>
+            <Link to="/itineraries/add">Do you want to plan another trip?</Link>
             <Outlet context={{ItinerariesList: itineraries, user:user }}/>
             <div className="allItineraries">
                 <h3>Upcoming Itineraries</h3>

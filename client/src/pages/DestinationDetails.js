@@ -1,7 +1,7 @@
 import { useParams, useOutletContext, Link  } from "react-router-dom";
 import { useState, useEffect } from "react";
-import StarRating from '../components/StarRating';
-import ReviewForm from "../components/ReviewForm";
+import StarRating from '../components/Destinations/StarRating';
+import ReviewForm from "../components/Destinations/ReviewForm";
 
 function DestinationDetails(){
 
