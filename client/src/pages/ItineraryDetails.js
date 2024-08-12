@@ -8,6 +8,7 @@ function ItineraryDetails(){
 
     const [ itinerary, setItinerary ] = useState(null)
     const [ activities, setActivities ] = useState([])
+    const [ sortedActivities, setSortedActivities ] = useState([])   
     const [ message , setMessage] = useState("") 
  
     useEffect(() => {
@@ -17,6 +18,8 @@ function ItineraryDetails(){
             r.json().then((itinerary) => {
                 setItinerary(itinerary)
                 setActivities(itinerary.activities)
+                const sorted = itinerary.activities.sort((a, b) => a.date.localeCompare(b.date));
+                setSortedActivities(sorted)
             })
           }
         })
@@ -62,8 +65,8 @@ function ItineraryDetails(){
             <h5>Activities</h5>
             
             <div id="activitiesList">
-                {activities.length > 0 ? (
-                    activities.map((a) => 
+                {sortedActivities.length > 0 ? (
+                    sortedActivities.map((a) => 
                         <Activity activity={a} deleteActivity={deleteActivity} key={a.id}/>
                     )
                 ) : (
