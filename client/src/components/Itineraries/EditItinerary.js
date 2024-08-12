@@ -64,8 +64,8 @@ function EditItinerary(){
     const { handleChange, handleBlur, handleSubmit, touched, errors, values } = formik;
 
     return (
-        <div>
-            <h2>Edit Itinerary</h2>
+        <div className="addItem">
+            <p>Please update the information you want to change:</p>
             <form onSubmit={handleSubmit}>
                 <label>
                     Name:
@@ -122,7 +122,7 @@ function EditItinerary(){
                     ) : null}
                 </label>
                 <br />
-                <button type="submit">Update Itinerary</button>
+                <button type="submit" className="buttons">Update Itinerary</button>
                 {errors.submit ? <p>{errors.submit}</p> : null}
             </form>
         </div>

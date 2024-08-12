@@ -85,7 +85,7 @@ function ProfileEdit() {
     });
     
     return (
-        <div id="profileChange">
+        <div className="addItem">
             <h3>Account information update</h3>
             <div className="dropdown">
                 <label htmlFor="infochange">I want to change:</label>

@@ -88,11 +88,11 @@ function EditActivity(){
     const { handleChange, handleBlur, handleSubmit, touched, errors, values } = formik;
 
     return (
-        <div>
+        <div className="addItem">
             <h2>Edit Activity</h2>
             <form onSubmit={handleSubmit}>
                 <br />
-                <label htmlFor="name">Activity Name:</label>
+                <label htmlFor="name">Activity Name: </label>
                 <input
                 type="text"
                 id="name"
@@ -104,7 +104,7 @@ function EditActivity(){
                 <div style={{ color: 'red' }}>{errors.name}</div>
                 )}
                 <br />
-                <label htmlFor="date">Date:</label>
+                <label htmlFor="date">Date: </label>
                 <input
                 type="date"
                 id="date"
@@ -116,7 +116,7 @@ function EditActivity(){
                 <div style={{ color: 'red' }}>{errors.date}</div>
                 )}
                 <br />
-                <label htmlFor="description">Description:</label>
+                <label htmlFor="description">Description: </label>
                 <textarea
                 type="text"
                 id="description"
@@ -128,7 +128,7 @@ function EditActivity(){
                 <div style={{ color: 'red' }}>{errors.description}</div>
                 )}
                 <br />
-                <label htmlFor="destination">Destination:</label>
+                <label htmlFor="destination">Destination: </label>
                 <select
                 id="destination"
                 value={values.destination_id}

@@ -70,8 +70,8 @@ function ItineraryDetails(){
     }
     
     return (
-        <div id="itineraryDetail">
-            <h4>{itinerary.name}</h4>
+        <div className="mainPages">
+            <h2>{itinerary.name}</h2>
             <p>{itinerary.description}</p>
             <ul>
                 <li>Start date: {itinerary.start_date}</li>
@@ -87,14 +87,12 @@ function ItineraryDetails(){
                 ) : (
                     <p>No activities are planned yet.</p>
                 )}
-                <Link to={`/itineraries/${itinerary.id}/activities`}>Let's plan activities</Link>
-                <br/>
-                <Link to={`/itineraries/${itinerary.id}/edit`}>Edit this Itinerary</Link>
-                <br/>
+                <Link className="buttons" to={`/itineraries/${itinerary.id}/activities`}>Let's plan activities</Link>
+                <Link className="buttons" to={`/itineraries/${itinerary.id}/edit`}>Edit this Itinerary</Link>
+                <button onClick={deleteItinerary} className="buttons">Delete this Itinerary</button>
                 <Outlet context={{itinerary: itinerary, activities: activities, updateItinerary: updateItinerary, addNewActivity: addNewActivity, updateActivities:updateActivities}} />
             </div>
-            <br/>
-            <button onClick={deleteItinerary} className="buttons">Delete this Itinerary</button>
+
             <br/><br/>
             <Link to={`/itineraries`}>Go back to Itineraries</Link>
         </div>

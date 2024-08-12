@@ -24,7 +24,7 @@ function Profile(){
     }
 
     return (
-        <div>
+        <div className="mainPages">
             <h3>Account Information</h3>
             <div id="accountDetail">
                 <p>User Name:  {user.username}</p>
@@ -32,9 +32,8 @@ function Profile(){
                 <p>Last Name:  {user.last_name}</p>
                 <p>Email Address:  {user.email}</p>
                 <p>Password:  ●●●●●●●●●</p>
-                <Link to="/profile/edit" >Update your account information</Link> 
-                <br/> <br/>
-                <Link to="/profile/delete">Delete your accounts</Link>
+                <Link to="/profile/edit"  className="buttons" >Update your account information</Link> 
+                <Link to="/profile/delete"  className="buttons">Delete your accounts</Link>
                 <Outlet  context={{user: user, updateUser:updateUser}} />
                 <br/>
                 <br/>

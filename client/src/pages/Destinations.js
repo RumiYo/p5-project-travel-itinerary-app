@@ -15,10 +15,9 @@ function Destinations(){
 
 
     return (
-        <div>
+        <div className="mainPages">
             <h2>Popular Cities</h2>
             {/* <Link to="/destinations/add">Do you want to add your favorite destination city?</Link> */}
-            <br/>
             <Outlet context={{destinationList: destinations, user:user }}/>
             <div className="allDestinations">
                 {destinations.map((d) => (

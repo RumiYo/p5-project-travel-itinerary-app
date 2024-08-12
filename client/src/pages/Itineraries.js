@@ -26,9 +26,9 @@ function Itineraries(){
 
 
     return (
-        <div>
+        <div className="mainPages">
             <h2>Itineraries</h2>
-            <Link to="/itineraries/add">Do you want to plan another trip?</Link>
+            <Link to="/itineraries/add"className="buttons" >Do you want to plan another trip?</Link>
             <Outlet context={{ItinerariesList: itineraries, user:user }}/>
             <div className="allItineraries">
                 <h3>Upcoming Itineraries</h3>

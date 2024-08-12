@@ -258,10 +258,24 @@ def seed_activities():
 
 def seed_reviews():
     reviews = [
-        Review(star=4.5, comment="Amazing experience!", user_id=1, destination_id=1),
-        Review(star=3.0, comment="It was okay.", user_id=2, destination_id=2),
-        Review(star=2.6, comment="A lot of homeless people and it smelled bad...", user_id=4, destination_id=2),
-        # ... Add more 
+        Review(star=randint(1, 5), comment=fake.sentence(nb_words=10), user_id=1, destination_id=1),
+        Review(star=randint(1, 5), comment=fake.sentence(nb_words=10), user_id=2, destination_id=2),
+        Review(star=randint(1, 5), comment=fake.sentence(nb_words=10), user_id=3, destination_id=3),
+        Review(star=randint(1, 5), comment=fake.sentence(nb_words=10), user_id=1, destination_id=4),
+        Review(star=randint(1, 5), comment=fake.sentence(nb_words=10), user_id=2, destination_id=1),
+        Review(star=randint(1, 5), comment=fake.sentence(nb_words=10), user_id=3, destination_id=2),
+        Review(star=randint(1, 5), comment=fake.sentence(nb_words=10), user_id=1, destination_id=3),
+        Review(star=randint(1, 5), comment=fake.sentence(nb_words=10), user_id=2, destination_id=4),
+        Review(star=randint(1, 5), comment=fake.sentence(nb_words=10), user_id=3, destination_id=1),
+        Review(star=randint(1, 5), comment=fake.sentence(nb_words=10), user_id=1, destination_id=2),
+        Review(star=randint(1, 5), comment=fake.sentence(nb_words=10), user_id=2, destination_id=3),
+        Review(star=randint(1, 5), comment=fake.sentence(nb_words=10), user_id=3, destination_id=4),
+        Review(star=randint(1, 5), comment=fake.sentence(nb_words=10), user_id=1, destination_id=1),
+        Review(star=randint(1, 5), comment=fake.sentence(nb_words=10), user_id=2, destination_id=2),
+        Review(star=randint(1, 5), comment=fake.sentence(nb_words=10), user_id=3, destination_id=3),
+        Review(star=randint(1, 5), comment=fake.sentence(nb_words=10), user_id=1, destination_id=4),
+        Review(star=randint(1, 5), comment=fake.sentence(nb_words=10), user_id=2, destination_id=1),
+        Review(star=randint(1, 5), comment=fake.sentence(nb_words=10), user_id=3, destination_id=2),
     ]
     db.session.add_all(reviews)
     db.session.commit()

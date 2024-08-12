@@ -44,14 +44,18 @@ function DestinationDetails(){
             <h1>{destination.city} ({destination.country})</h1>
             <img src={destination.image_url} alt={destination.city} id="destinationDetailImage"/>
             <p>{destination.description}</p>
-            <h4>Reviews</h4>
+            <h3>Reviews</h3>
             <div>
-            {reviews.map((r) => (
-                    <div key={r.id} className="reviewList">
-                        <StarRating star={r.star} />  
-                        <span>   {r.comment}</span>
-                    </div>
-                ))}                
+            {reviews.length >0 ? (
+                reviews.map((r) => (
+                        <div key={r.id} className="reviewList">
+                            <StarRating star={r.star} />  
+                            <span>   {r.comment}</span>
+                        </div>
+                    ))
+                ) : (
+                    <p>No reviews.</p>                    
+                )}                
             </div>
             < ReviewForm destination={destination} user={user} updateReviews={updateReviews}/>
             <br/>

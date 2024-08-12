@@ -118,7 +118,7 @@ function AddActivities() {
         )}
         <br />
         <label htmlFor="description">Description:</label>
-        <input
+        <textarea
           type="text"
           id="description"
           autoComplete="off"
