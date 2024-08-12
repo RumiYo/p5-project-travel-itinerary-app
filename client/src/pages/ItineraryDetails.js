@@ -6,6 +6,7 @@ function ItineraryDetails(){
 
     const [ itinerary, setItinerary ] = useState(null)
     const [ activities, setActivities ] = useState([])
+    const [ message , setMessage] = useState("") 
  
     useEffect(() => {
         fetch(`/itineraries/${parseInt(params.id)}`)
@@ -19,14 +20,29 @@ function ItineraryDetails(){
         })
     }, [params.id]);
 
-    const updateActivites = (newActivity) => {
+    function updateActivites(newActivity){
         setActivities([...activities, newActivity]);
-    };
+    }
+
+    function handleDeleteActivity (activityId){
+        console.log("Delete", activityId)
+        fetch(`/activities/${activityId}`,{
+            method: "DELETE",
+        }).then((r) => {
+            if(r.ok){
+                setActivities(activities.filter((a) => a.id !== activityId));
+            } else {
+                r.json().then((err) => setMessage(err.error));
+                console.log(message)
+            }
+        });
+    }
+
+
 
     if (!itinerary) {
         return <div>Loading...</div>;
     }
-
     
     return (
         <div id="itineraryDetail">
@@ -45,6 +61,7 @@ function ItineraryDetails(){
                             <h4 key={a.id}>{a.date} {a.name}</h4>
                             <small>{a.destination.city} ({a.destination.country})</small>
                             <p>{a.description}</p>
+                            <button onClick={() => handleDeleteActivity(a.id)}>Delete</button>
                         </div>
                     ))
                 ) : (
@@ -54,7 +71,8 @@ function ItineraryDetails(){
                 <br/>
                 <Outlet context={{itinerary:itinerary, updateActivites:updateActivites}} />
             </div>
-            <Link to={`/itineraries`}>Close</Link>
+            <br/>
+            <Link to={`/itineraries`}>Go back to Itineraries</Link>
         </div>
     )
 }
