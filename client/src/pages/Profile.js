@@ -1,18 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { useOutletContext, Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
+import UserContext from "../UserContext";
 
 
 function Profile(){
-
-    const { user, updateUser } = useOutletContext(); 
+    const { user, setUser, updateUser } = useContext(UserContext);
 
     useEffect(() => {
         fetch(`/users/${user.id}`)
         .then((r)=> {
           if(r.ok){
             r.json().then((user) => {
-                updateUser(user)
+                setUser(user)
           })
           }
         })
@@ -34,7 +34,7 @@ function Profile(){
                 <p>Password:  ●●●●●●●●●</p>
                 <Link to="/profile/edit"  className="buttons" >Update your account information</Link> 
                 <Link to="/profile/delete"  className="buttons">Delete your accounts</Link>
-                <Outlet  context={{user: user, updateUser:updateUser}} />
+                <Outlet />
                 <br/>
                 <br/>
             </div>

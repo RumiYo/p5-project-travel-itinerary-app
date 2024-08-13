@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from 'formik';
 import * as yup from "yup";
+import UserContext from "../../UserContext";
 
-function LoginForm({ onLogin }){
+function LoginForm(){
     const navigate = useNavigate();
+    const { setUser } = useContext(UserContext);  
 
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +38,7 @@ function LoginForm({ onLogin }){
         setIsLoading(false);
         if (r.ok) {
             r.json().then((user)=> {
-                onLogin(user)
+                setUser(user)
                 navigate("/"); 
             });
         } else {
@@ -50,7 +52,7 @@ function LoginForm({ onLogin }){
     return (
         <div >
             <h2>Login</h2>
-            <form className="addItem" onSubmit={formik.handleSubmit}>
+            <form className="loginSignin" onSubmit={formik.handleSubmit}>
                 <p>Type your UserName and Password:</p>
                 <label htmlFor="username">User Name: </label>
                 <input

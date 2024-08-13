@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Outlet } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import "./App.css";
 import Login from "./pages/Login";
+import UserContext from "./UserContext";
 
 function App() {
-  const [ user, setUser ] = useState(null);
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     fetch("/check_session")
@@ -16,24 +17,16 @@ function App() {
     })
   }, []);
 
-  const handleLogin = (user) => {
-    setUser(user); 
-  };
-
-  const handleLogOut = () => {
-    setUser(null); 
-  };
-
   if (!user)
-    return <Login onLogin={handleLogin}  />
+    return <Login  />
   
 
   return (
     <>
       <header>
-        <NavBar user={user} onLogout={handleLogOut} />
+        <NavBar  />
       </header>
-      <Outlet  context={{user: user, updateUser:handleLogin }}  />
+      <Outlet  />
     </>
   )
 }

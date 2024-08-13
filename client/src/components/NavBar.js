@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./NavBar.css";
+import UserContext from "../UserContext";
 
-function NavBar({ member, onLogout }){
+function NavBar(){
+    const { handleLogOut } = useContext(UserContext);
+
     const navigate = useNavigate();
 
     function handleLogoutClick() {
         fetch("/logout", { method: "DELETE" }).then((r) => {
           if (r.ok) {
-            onLogout();
+            handleLogOut();
             navigate("/"); 
           }
         });

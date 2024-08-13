@@ -1,12 +1,14 @@
 
-import { Link, useOutletContext,  } from "react-router-dom";
-import { useState } from "react";
+import { Link, useOutletContext, useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import UserContext from "../../UserContext";
 
 function ProfileEdit() {
+    const navigate = useNavigate();
 
-    const { user, updateUser } = useOutletContext(); 
+    const { user, setUser } = useContext(UserContext);
 
     const [keyValue, setKeyValue] = useState("username");
     const [message, setMessage] = useState("");  
@@ -74,8 +76,9 @@ function ProfileEdit() {
                 }
             })
             .then((updatedUser) => {
-                updateUser(updatedUser);
+                setUser(updatedUser);
                 setMessage("Successfully Updated");
+                navigate("/profile")
             })
             .catch((error) => {
                 console.error('Error during fetch:', error);

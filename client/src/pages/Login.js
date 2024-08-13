@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import LoginForm from "../components/Home/LoginForm";
 import SignUpForm from "../components/Home/SignUpForm";
 import homePhoto from "../components/Home/home_photo.jpg"
+import UserContext from "../UserContext";
 
-
-function Login({ onLogin }){
+function Login(){
+    const { user, setUser } = useContext(UserContext);    
     const [ showLogin, setShowLogin ] =useState(true);
 
         return (
@@ -12,7 +13,7 @@ function Login({ onLogin }){
                 <h1>Travel Itinerary App</h1>
                 {showLogin ? (
                     <>
-                    <LoginForm onLogin={ onLogin } />
+                    <LoginForm />
                     <p>Don't have an account?</p>
                     <button  className="buttons" onClick={() => setShowLogin(false)} >
                           Go to Signup page
@@ -20,7 +21,7 @@ function Login({ onLogin }){
                     </>
                 ) : (
                     <>
-                        <SignUpForm onSignUp={ onLogin } />
+                        <SignUpForm />
                         <p>Already have an account? </p>
                         <button  className="buttons" onClick={() => setShowLogin(true)}>
                             Go to Login page

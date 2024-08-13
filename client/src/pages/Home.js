@@ -1,8 +1,9 @@
-import { useOutletContext } from "react-router-dom";
+import  { useContext } from "react";
 import homePhoto from "../components/Home/home_photo.jpg"
+import UserContext from "../UserContext";
 
 function Home(){
-    const { user } = useOutletContext();
+    const { user } = useContext(UserContext); 
 
     return (
         <div className="home">

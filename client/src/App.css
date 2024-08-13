@@ -69,6 +69,14 @@ main {
   overflow: auto;
 }
 
+.loginSignin {
+  margin: 20px 10px 50px 10px;
+  padding: 5px;
+  padding: 10px 40px;
+  position: float;
+  background-color: #F9DCC4;
+}
+
 /* destinationList */
 
 div.destinationList {

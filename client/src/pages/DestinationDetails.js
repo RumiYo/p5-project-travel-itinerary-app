@@ -3,12 +3,13 @@ import { useState, useEffect, useContext } from "react";
 import StarRating from '../components/Destinations/StarRating';
 import ReviewForm from "../components/Destinations/ReviewForm";
 import DestinationContext from "../DestinationContext";
+import UserContext from "../UserContext";
 
 function DestinationDetails(){
 
     const { destination, setDestination } = useContext(DestinationContext);
     const params = useParams();
-    const { user } = useOutletContext();
+    const { user } = useContext(UserContext);    
     const [ error, setError] = useState("")
     const [ popularSpots, setPopularSpots ] = useState([])
     const [ reviews, setReviews ] = useState([])
@@ -59,7 +60,7 @@ function DestinationDetails(){
                     <p>No reviews.</p>                    
                 )}                
             </div>
-            < ReviewForm destination={destination} user={user} updateReviews={updateReviews}/>
+            < ReviewForm destination={destination} updateReviews={updateReviews}/>
             <br/>
             <div className="allPopularSpot">
                 {popularSpots.map((a) => (

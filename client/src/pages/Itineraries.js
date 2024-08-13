@@ -1,14 +1,15 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Outlet, useOutletContext, Link } from "react-router-dom";
 import Itinerary from "../components/Itineraries/Itinerary"
-import ItineraryContext from '../ItineraryContext';  
+import ItineraryContext from '../ItineraryContext'; 
+import UserContext from "../UserContext"; 
 
 function Itineraries(){
 
     const { itineraries, setItineraries } = useContext(ItineraryContext);
+    const { user } = useContext(UserContext);
     const [upcomingItineraries, setUpcomingItineraries] = useState([]);
     const [pastItineraries, setPastItineraries] = useState([]);
-    const { user } = useOutletContext();
 
     useEffect(()=>{
         fetch(`/users/${user.id}`)

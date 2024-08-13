@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useFormik } from 'formik';
 import * as yup from "yup";
+import DestinationContext from "../../DestinationContext";
+import UserContext from "../../UserContext";
 
-function ReviewForm({ destination, user, updateReviews }){
-
+function ReviewForm({ updateReviews }){
+	const { destination } = useContext(DestinationContext);
+	const { user } = useContext(UserContext);  
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 

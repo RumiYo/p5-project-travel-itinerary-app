@@ -1,27 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from 'formik';
 import * as yup from "yup";
+import UserContext from "../../UserContext";
 
-function SignUpForm({ onSignUp }){
-  const navigate = useNavigate();
+function SignUpForm(){
+    const navigate = useNavigate();
+    const { setUser } = useContext(UserContext);  
 
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  	const [error, setError] = useState("");
+ 	const [isLoading, setIsLoading] = useState(false);
 
-
-  const formSchema = yup.object().shape({
-    first_name: yup.string().required("Must enter First Name")
-            .max(15, "First Name must be at most 15 characters long"),
-    last_name: yup.string().required("Must enter Last Name")
-            .max(15, "Last Name must be at most 15 characters long"),
-    username: yup.string().required("Must enter a User Name")
-            .max(10, "Username must be at most 10 characters long")
-            .matches(/^\S*$/, "Username cannot contain spaces"),
-    email: yup.string().email("Invalid email").required("Must enter email"),
-    password_hash: yup.string().required("Must enter password")
-            .matches(/^\S*$/, "Username cannot contain spaces").max(15),
-  });
+	const formSchema = yup.object().shape({
+		first_name: yup.string().required("Must enter First Name")
+				.max(15, "First Name must be at most 15 characters long"),
+		last_name: yup.string().required("Must enter Last Name")
+				.max(15, "Last Name must be at most 15 characters long"),
+		username: yup.string().required("Must enter a User Name")
+				.max(10, "Username must be at most 10 characters long")
+				.matches(/^\S*$/, "Username cannot contain spaces"),
+		email: yup.string().email("Invalid email").required("Must enter email"),
+		password_hash: yup.string().required("Must enter password")
+				.matches(/^\S*$/, "Username cannot contain spaces").max(15),
+	});
 
     const formik = useFormik({
       initialValues: {
@@ -45,8 +46,8 @@ function SignUpForm({ onSignUp }){
           setIsLoading(false);
           if (r.ok) {
             r.json().then((user) => {
-              onSignUp(user)
-              navigate("/"); 
+				setUser(user)
+            	navigate("/"); 
             });
           } else {
             r.json().then((err) => setError(err.error));
@@ -60,7 +61,7 @@ function SignUpForm({ onSignUp }){
     return (
         <div>
             <h2>Signup Form</h2>
-            <form className="addItem" onSubmit={handleSubmit}>
+            <form className="loginSignin" onSubmit={handleSubmit}>
               <p>Please fill out all the information below:</p>
                 <label htmlFor="first_name">First Name:  </label>
                 <input

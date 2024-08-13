@@ -1,10 +1,11 @@
 import { Link, useOutletContext, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import UserContext from "../../UserContext";
 
 function ProfileDelete(){
     const navigate = useNavigate();
 
-    const { user, updateUser } = useOutletContext(); 
+    const { user, setUser } = useContext(UserContext);
     const [ message , setMessage] = useState("") 
 
     function handleSubmit(e){
@@ -14,8 +15,8 @@ function ProfileDelete(){
             method: "DELETE",
           }).then((r) => {
             if (r.ok) {
-              updateUser(null);
-              navigate("/"); 
+                setUser(null);
+                navigate("/"); 
             } else {
                 r.json().then((err) => setMessage(err.error));
                 console.log(message)

@@ -5,15 +5,17 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import routes from "./routes.js";
 import { ItineraryProvider } from "./ItineraryContext.js";
 import { DestinationProvider } from "./DestinationContext.js";
+import { UserProvider } from "./UserContext.js";
 
 const router = createBrowserRouter(routes);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <DestinationProvider>
-        <ItineraryProvider>
-            <RouterProvider router={router} />
-        </ItineraryProvider>
-    </DestinationProvider>
-
+    <UserProvider>
+        <DestinationProvider>
+            <ItineraryProvider>
+                <RouterProvider router={router} />
+            </ItineraryProvider>
+        </DestinationProvider>
+    </UserProvider>
 );
