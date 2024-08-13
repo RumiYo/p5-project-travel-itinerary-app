@@ -21,7 +21,10 @@ main {
 }
 
 input[type="text"] {
-  	width: 50%;
+  	width: 30%;
+}
+input[type="password"]{
+	width: 30%;
 }
 textarea {
  	width: 60%;
@@ -130,17 +133,17 @@ div.allPopularSpot {
 }
 
 div.popularSpotsList {
-	background-color: #EDDCD2;
-	align-items: center;
-	margin:4px;
-	text-align: center;
-	display: block;
-	padding: 15px 0.5% 5px 0.5%;
-	width: 45%;
-	min-width: 110px;
-	height:350px;
-	overflow: auto;
-	float: left;
+    background-color: #EDDCD2;
+    align-items: center;
+    margin: 4px;
+    text-align: center;
+    display: block;
+    padding: 15px 0.5% 5px 0.5%;
+    width: 45%;
+    min-width: 110px;
+    height: 350px;
+    overflow: auto;
+    float: left;
 }
 img.popularSpotsListImage {
 	max-width: 90%;
@@ -150,9 +153,11 @@ img.popularSpotsListImage {
 }
 
 .locationsHeading {
-	display: block;
+    clear: both; 
+    display: block;
+    width: 100%;
     margin-top: 50px; 
-    padding-top: 20px; 
+    padding-top: 20px;
 }
 
 .map-container {

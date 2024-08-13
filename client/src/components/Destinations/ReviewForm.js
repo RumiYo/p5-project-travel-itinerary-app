@@ -48,6 +48,9 @@ function ReviewForm({ updateReviews }){
           })
         }
       })
+	  if (!destination || !user) {
+		return <p>Loading...</p>;  // or a more appropriate loading indicator
+	  }
 
       return (
         <div>

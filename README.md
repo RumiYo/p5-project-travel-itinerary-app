@@ -1,359 +1,226 @@
-# Phase 4 Full-Stack Application Project Template
+# Online Library App 
+Flatiron Softwear engineer course phase 5 project (Final Project)
 
-## Learning Goals
+## Table of Contents
+* [Phase 5 project requirement](#phase-5-project-requirements)
+* [My Full-Stack application](#my-full-stack-application)
+* [Technologies](#technologies)
+* [Future improvement](#future-improvement)
+* [Resources](#resources)
 
-- Discuss the basic directory structure of a full-stack Flask/React application.
-- Carry out the first steps in creating your Phase 4 project.
 
----
+## Phase 5 project requirements
 
-## Introduction
+[Project guidelines are here. ](https://github.com/RumiYo/python-p5-project-guidelines-and-schedule)
 
-Fork and clone this lesson for a template for your full-stack application. Take
-a look at the directory structure before we begin (NOTE: node_modules will be
-generated in a subsequent step):
+For this project, you must:
 
-```console
-$ tree -L 2
-$ # the -L argument limits the depth at which we look into the directory structure
-.
-├── CONTRIBUTING.md
-├── LICENSE.md
-├── Pipfile
-├── README.md
-├── client
-│   ├── README.md
-│   ├── package.json
-│   ├── public
-│   └── src
-└── server
-    ├── app.py
-    ├── config.py
-    ├── models.py
-    └── seed.py
+1. Implement Flask and SQLAlchemy in an application backend.
+2. Include a many to many relationship.
+3. Implement a minimum of 4 models.
+4. Implement a minimum of 5 client side routes using React router.
+5. Include full CRUD on at least 1 model, following REST conventions.
+6. Implement validations and error handling.
+7. Implement something new not taught in the curriculum. (Check in with your instructor to ensure the scope of your idea is appropriate.)
+8. Implement useContext or Redux.
+
+## My Full-Stack application
+This Travel Itinerary Application allow users to browser popular cities and touristic spots and plan their trip after the login. 
+
+[![Watch the video](https://img.youtube.com/vi/y_ZHk9JSTLk/0.jpg)](https://youtu.be/y_ZHk9JSTLk)
+
+#### Backend:
+- Python and Flask for building the API
+- SQLAlchemy for database management
+- Serialization and validation
+
+#### Frontend:
+- React for building the user interface
+- Sending HTTP requests with fetch to the API
+- React Router for navigation
+- Formik and Form Validation
+- API integration with mapbox
+
+## Technologies
+
+### Password Protection
+Instead of storing users' passwords in plain text, we store a hashed version of them for the security purpose.
+We use `bcrypt` to hash passwords before storing them in the database. Hashing transforms the password into a secure string that is not reversible, while salting adds unique data to each password to prevent identical passwords from having the same hash. This protects user credentials in case of a database breach and makes it harder for attackers to crack passwords.
+Benefits:
+- Enhanced Security: Passwords are stored as hashes, not plain text.
+- Protection Against Attacks: Unique salts and hashing complexity make it difficult for attackers to reverse-engineer passwords.
 ```
+class Member(db.Model, SerializerMixin):
+    __tablename__='members'
+    serialize_rules = ('-loans.member','-books.members', '-books.loans')
 
-A `migrations` folder will be added to the `server` directory in a later step.
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String, nullable=False)
+    last_name = db.Column(db.String, nullable=False)
+    user_id = db.Column(db.String, nullable=False, unique=True)
+    email = db.Column(db.String, nullable=False)
+    _password_hash = db.Column(db.String, nullable=False)
 
-The `client` folder contains a basic React application, while the `server`
-folder contains a basic Flask application. You will adapt both folders to
-implement the code for your project .
+    # Add relationships
+    loans = db.relationship('Loan', back_populates='member')
+    books = association_proxy('loans', 'book',
+                creator=lambda project_obj: Loan(project=project_obj))
 
-NOTE: If you did not previously install `tree` in your environment setup, MacOS
-users can install this with the command `brew install tree`. WSL and Linux users
-can run `sudo apt-get install tree` to download it as well.
+    #passsword handling
+    @hybrid_property
+    def password_hash(self):
+        raise AttributeError('Password hash is not accessible')
 
-## Where Do I Start?
-
-Just as with your Phase 3 Project, this will likely be one of the biggest
-projects you've undertaken so far. Your first task should be creating a Git
-repository to keep track of your work and roll back any undesired changes.
-
-### Removing Existing Git Configuration
-
-If you're using this template, start off by removing the existing metadata for
-Github and Canvas. Run the following command to carry this out:
-
-```console
-$ rm -rf .git .canvas
-```
-
-The `rm` command removes files from your computer's memory. The `-r` flag tells
-the console to remove _recursively_, which allows the command to remove
-directories and the files within them. `-f` removes them permanently.
-
-`.git` contains this directory's configuration to track changes and push to
-Github (you want to track and push _your own_ changes instead), and `.canvas`
-contains the metadata to create a Canvas page from your Git repo. You don't have
-the permissions to edit our Canvas course, so it's not worth keeping around.
-
-### Creating Your Own Git Repo
-
-First things first- rename this directory! Once you have an idea for a name,
-move one level up with `cd ..` and run
-`mv python-p4-project-template <new-directory-name>` to change its name (replace
-<new-directory-name> with an appropriate project directory name).
-
-> **Note: If you typed the `mv` command in a terminal within VS Code, you should
-> close VS Code then reopen it.**
-
-> **Note: `mv` actually stands for "move", but your computer interprets this
-> rename as a move from a directory with the old name to a directory with a new
-> name.**
-
-`cd` back into your new directory and run `git init` to create a local git
-repository. Add all of your local files to version control with `git add --all`,
-then commit them with `git commit -m'initial commit'`. (You can change the
-message here- this one is just a common choice.)
-
-Navigate to [GitHub](https://github.com). In the upper-right corner of the page,
-click on the "+" dropdown menu, then select "New repository". Enter the name of
-your local repo, choose whether you would like it to be public or private, make
-sure "Initialize this repository with a README" is unchecked (you already have
-one), then click "Create repository".
-
-Head back to the command line and enter
-`git remote add origin git@github.com:github-username/new-repository-name.git`.
-NOTE: Replace `github-username` with your github username, and
-`new-repository-name` with the name of your new repository. This command will
-map the remote repository to your local repository. Finally, push your first
-commit with `git push -u origin main`.
-
-Your project is now version-controlled locally and online. This will allow you
-to create different versions of your project and pick up your work on a
-different machine if the need arises.
-
----
-
-## Setup
-
-### `server/`
-
-The `server/` directory contains all of your backend code.
-
-`app.py` is your Flask application. You'll want to use Flask to build a simple
-API backend like we have in previous modules. You should use Flask-RESTful for
-your routes. You should be familiar with `models.py` and `seed.py` by now, but
-remember that you will need to use Flask-SQLAlchemy, Flask-Migrate, and
-SQLAlchemy-Serializer instead of SQLAlchemy and Alembic in your models.
-
-The project contains a default `Pipfile` with some basic dependencies. You may
-adapt the `Pipfile` if there are additional dependencies you want to add for
-your project.
-
-To download the dependencies for the backend server, run:
-
-```console
-pipenv install
-pipenv shell
-```
-
-You can run your Flask API on [`localhost:5555`](http://localhost:5555) by
-running:
-
-```console
-python server/app.py
-```
-
-Check that your server serves the default route `http://localhost:5555`. You
-should see a web page with the heading "Project Server".
-
-### `client/`
-
-The `client/` directory contains all of your frontend code. The file
-`package.json` has been configured with common React application dependencies,
-include `react-router-dom`. The file also sets the `proxy` field to forward
-requests to `"http://localhost:5555". Feel free to change this to another port-
-just remember to configure your Flask app to use another port as well!
-
-To download the dependencies for the frontend client, run:
-
-```console
-npm install --prefix client
-```
-
-You can run your React app on [`localhost:3000`](http://localhost:3000) by
-running:
-
-```sh
-npm start --prefix client
-```
-
-Check that your the React client displays a default page
-`http://localhost:3000`. You should see a web page with the heading "Project
-Client".
-
-## Generating Your Database
-
-NOTE: The initial project directory structure does not contain the `instance` or
-`migrations` folders. Change into the `server` directory:
-
-```console
-cd server
-```
-
-Then enter the commands to create the `instance` and `migrations` folders and
-the database `app.db` file:
-
-```
-flask db init
-flask db upgrade head
-```
-
-Type `tree -L 2` within the `server` folder to confirm the new directory
-structure:
-
-```console
-.
-├── app.py
-├── config.py
-├── instance
-│   └── app.db
-├── migrations
-│   ├── README
-│   ├── __pycache__
-│   ├── alembic.ini
-│   ├── env.py
-│   ├── script.py.mako
-│   └── versions
-├── models.py
-└── seed.py
-```
-
-Edit `models.py` and start creating your models. Import your models as needed in
-other modules, i.e. `from models import ...`.
-
-Remember to regularly run
-`flask db revision --autogenerate -m'<descriptive message>'`, replacing
-`<descriptive message>` with an appropriate message, and `flask db upgrade head`
-to track your modifications to the database and create checkpoints in case you
-ever need to roll those modifications back.
-
-> **Tip: It's always a good idea to start with an empty revision! This allows
-> you to roll all the way back while still holding onto your database. You can
-> create this empty revision with `flask db revision -m'Create DB'`.**
-
-If you want to seed your database, now would be a great time to write out your
-`seed.py` script and run it to generate some test data. Faker has been included
-in the Pipfile if you'd like to use that library.
-
----
-
-#### `config.py`
-
-When developing a large Python application, you might run into a common issue:
-_circular imports_. A circular import occurs when two modules import from one
-another, such as `app.py` and `models.py`. When you create a circular import and
-attempt to run your app, you'll see the following error:
-
-```console
-ImportError: cannot import name
-```
-
-If you're going to need an object in multiple modules like `app` or `db`,
-creating a _third_ module to instantiate these objects can save you a great deal
-of circular grief. Here's a good start to a Flask config file (you may need more
-if you intend to include features like authentication and passwords):
-
-```py
-# Standard library imports
-
-# Remote library imports
-from flask import Flask
-from flask_cors import CORS
-from flask_migrate import Migrate
-from flask_restful import Api
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import MetaData
-
-# Local imports
-
-# Instantiate app, set attributes
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.json.compact = False
-
-# Define metadata, instantiate db
-metadata = MetaData(naming_convention={
-    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-})
-db = SQLAlchemy(metadata=metadata)
-migrate = Migrate(app, db)
-db.init_app(app)
-
-# Instantiate REST API
-api = Api(app)
-
-# Instantiate CORS
-CORS(app)
+    @password_hash.setter
+    def password_hash(self, password):
+        if password is None:
+            raise ValueError("Password cannot be None")
+        password_hash = bcrypt.generate_password_hash(
+            password.encode('utf-8')
+        )
+        self._password_hash = password_hash.decode('utf-8')
+    
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(
+            self._password_hash, password.encode('utf-8')
+        )
 
 ```
 
-Now let's review that last line...
+### Authentication in Flask
+Authentication is to provide one's identity to an application in order to access protected information; logging in.
+UserID and password combination is the most popular authentication mechanism, and it is also known as password authentication.
+```
+class Signups(Resource):
 
-#### CORS
+    def post(self):
+        json_data = request.get_json()
+        if not json_data.get('user_id') or not json_data.get('first_name') or not json_data.get('last_name')or not json_data.get('email'):
+            return {"error": "All input fields cannot be empty"}, 422 
+        duplicate_name_member = Member.query.filter(Member.user_id==json_data['user_id']).first()
+        if duplicate_name_member:
+            return {"error": "This user_id already exists. Try with a new user id"}, 422
+        new_record = Member(
+            first_name=json_data.get('first_name'),
+            last_name=json_data.get('last_name'),
+            user_id=json_data.get('user_id'),
+            email=json_data.get('email'),
+        )
+        new_record.password_hash = json_data.get('password_hash')
+        db.session.add(new_record)
+        db.session.commit()
+        print(new_record.to_dict())
 
-CORS (Cross-Origin Resource Sharing) is a system that uses HTTP headers to
-determine whether resources from different servers-of-origin can be accessed. If
-you're using the fetch API to connect your frontend to your Flask backend, you
-need to configure CORS on your Flask application instance. Lucky for us, that
-only takes one line:
+        if not new_record.id:
+            return {'error': 'validation errors'}, 400
+        session['user_id'] = new_record.id
+        return make_response(new_record.to_dict(), 201)
 
-```py
-CORS(app)
+class CheckSession(Resource):
+    def get(self):
+        member = Member.query.filter(Member.id==session.get('user_id')).first()
+        if member:
+            return member.to_dict()
+        else:
+            return {'error': '401: Not Authorized'}, 401     
 
+class Login(Resource):
+    def post(self):
+        json_data = request.get_json()
+        member = Member.query.filter(Member.user_id==json_data.get('user_id')).first()
+        if member and member.authenticate(json_data.get('password')):
+            session['user_id'] = member.id
+            return member.to_dict()
+
+        return {'error': 'Invalid username or password'}, 401
+
+class Logout(Resource):
+    def delete(self):
+        if not session['user_id']:
+            return {'error': 'You are not logged in'}, 401
+
+        session['user_id']= None
+        return {}, 204
 ```
 
-By default, Flask-CORS enables CORS on all routes in your application with all
-fetching servers. You can also specify the resources that allow CORS. The
-following specifies that routes beginning with `api/` allow CORS from any
-originating server:
-
-```py
-CORS(app, resources={r"/api/*": {"origins": "*"}})
-
+### Formik Form Validation
+The Formik library provides us a hook to give initial values to the form and write a onSubmit callback function to do something with the values that were submitted with the condition below.  
+Yup provides a schema-based validation approach.
+```
+	const formSchema = yup.object().shape({
+		first_name: yup.string().required("Must enter First Name")
+				.max(15, "First Name must be at most 15 characters long"),
+		last_name: yup.string().required("Must enter Last Name")
+				.max(15, "Last Name must be at most 15 characters long"),
+		username: yup.string().required("Must enter a User Name")
+				.max(10, "Username must be at most 10 characters long")
+				.matches(/^\S*$/, "Username cannot contain spaces"),
+		email: yup.string().email("Invalid email").required("Must enter email"),
+		password_hash: yup.string().required("Must enter password")
+				.matches(/^\S*$/, "Username cannot contain spaces").max(15),
+	});
 ```
 
-You can also set this up resource-by-resource by importing and using the
-`@cross_origin` decorator:
+### mapbox Integration
+https://www.mapbox.com/
+Mapbox is a powerful tool used for integrating interactive maps into web applications. It provides customizable mapping services and geocoding capabilities to enhance user experience by displaying geographic data and locations.
+In this application, Mapbox is utilized to show the locations of cities. By leveraging the Mapbox Geocoding API, city names are converted into geographical coordinates, which are then used to render interactive maps.
+```
+function MapboxMap ({ city, zoom = 8 }) {
+    const [center, setCenter] = useState([0, 0]);
 
-```py
-@app.route("/")
-@cross_origin()
-def howdy():
-  return "Howdy partner!"
+    useEffect(() => {
+        if (city) {
+        // Fetch coordinates for the city using Mapbox Geocoding API
+        fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(city)}.json?access_token=${mapboxgl.accessToken}`)
+            .then(response => response.json())
+            .then(data => {
+            if (data.features.length > 0) {
+                const [lng, lat] = data.features[0].geometry.coordinates;
+                setCenter([lng, lat]);
+            }
+            })
+            .catch(error => console.error('Error fetching city coordinates:', error));
+        }
+    }, [city]);
 
+    useEffect(() => {
+        if (center[0] !== 0) {
+        const map = new mapboxgl.Map({
+            container: 'map', // ID of the HTML element
+            style: 'mapbox://styles/mapbox/streets-v11', // Map style
+            center, // [longitude, latitude]
+            zoom, // Initial zoom level
+        });
+
+        // Add a marker for the city
+        new mapboxgl.Marker()
+            .setLngLat(center)
+            .setPopup(new mapboxgl.Popup().setText(city))
+            .addTo(map);
+
+        // Clean up the map on component unmount
+        return () => map.remove();
+        }
+    }, [center, city, zoom]);
+
+    return <div id="map" className="map-container" />;
+};
+
+export default MapboxMap;
 ```
 
----
-
-## Updating Your README.md
-
-`README.md` is a Markdown file that describes your project. These files can be
-used in many different ways- you may have noticed that we use them to generate
-entire Canvas lessons- but they're most commonly used as homepages for online
-Git repositories. **When you develop something that you want other people to
-use, you need to have a README.**
-
-Markdown is not a language that we cover in Flatiron's Software Engineering
-curriculum, but it's not a particularly difficult language to learn (if you've
-ever left a comment on Reddit, you might already know the basics). Refer to the
-cheat sheet in this lesson's resources for a basic guide to Markdown.
-
-### What Goes into a README?
-
-This README should serve as a template for your own- go through the important
-files in your project and describe what they do. Each file that you edit (you
-can ignore your migration files) should get at least a paragraph. Each function
-should get a small blurb.
-
-You should descibe your application first, and with a good level of detail. The
-rest should be ordered by importance to the user. (Probably routes next, then
-models.)
-
-Screenshots and links to resources that you used throughout are also useful to
-users and collaborators, but a little more syntactically complicated. Only add
-these in if you're feeling comfortable with Markdown.
-
----
-
-## Conclusion
-
-A lot of work goes into a full-stack application, but it all relies on concepts
-that you've practiced thoroughly throughout this phase. Hopefully this template
-and guide will get you off to a good start with your Phase 4 Project.
-
-Happy coding!
-
----
+## Future Improvement
+- `Add Facebook/Google Sign-In:` Enhance accessibility by integrating social media sign-in options.
+- `Map Search Box:` Implement a search feature on the map to easily locate popular spots.
+- `Create Itinerary/Add Activity Button:` Add functionality to create itineraries or add activities directly from the Destination Detail page.
+- `Replace Pulldown with Search Box:` Improve user experience on the Add Activity page by replacing the pulldown menu with a search box.
 
 ## Resources
 
-- [Setting up a respository - Atlassian](https://www.atlassian.com/git/tutorials/setting-up-a-repository)
-- [Create a repo- GitHub Docs](https://docs.github.com/en/get-started/quickstart/create-a-repo)
-- [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
-- [Python Circular Imports - StackAbuse](https://stackabuse.com/python-circular-imports/)
-- [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/)
-
-https://coolors.co/c9968d-dda59b-f3b5aa-fec5bb-fcd5ce-fae1dd-f8edeb-f9dcc4-fec89a-fecda3
+- [DBDiagram](https://dbdiagram.io/d)
+- [Faker 26.0.0 documentation: date_time](https://faker.readthedocs.io/en/master/providers/faker.providers.date_time.html)
+- [Python Formik Validation](https://github.com/learn-co-curriculum/python-formik-validation)
+- [MAPBOX VS GOOGLE MAPS: WHAT MAPS API IS BEST FOR YOUR APP?](https://www.uptech.team/blog/mapbox-vs-google-maps-vs-openstreetmap)
+- [React + Mapbox beginner tutorial](https://dev.to/laney/react-mapbox-beginner-tutorial-2e35)
+- [Coolors](https://coolors.co/palette/cb997e-eddcd2-fff1e6-f0efeb-ddbea9-a5a58d-b7b7a4)

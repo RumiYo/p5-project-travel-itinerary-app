@@ -53,18 +53,21 @@ function DestinationDetails(){
             <div>
             {reviews.length >0 ? (
                 reviews.map((r) => (
+                    <>
                         <div key={r.id} className="reviewList">
                             <StarRating star={r.star} />  
                             <span>   {r.comment}</span>
                         </div>
+                        <br/>
+                    </>
                     ))
                 ) : (
                     <p>No reviews.</p>                    
                 )}                
             </div>
-            < ReviewForm destination={destination} updateReviews={updateReviews}/>
+            < ReviewForm  updateReviews={updateReviews}/>
             <br/>
-            <div className="allPopularSpot">
+            <div className="allPopularSpot  clearfix">
                 {popularSpots.map((a) => (
                     <div key={a.id} className="popularSpotsList">
                         <h3>{a.name}</h3>
