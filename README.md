@@ -41,6 +41,9 @@ This Travel Itinerary Application allows users to browse popular cities and tour
 - Formik and Form Validation
 - API integration with mapbox
 
+#### Models:
+![itineraryapp_diagram](https://github.com/user-attachments/assets/bd5ee756-877f-45c0-8f21-85a7686477d5)
+
 ## Technologies
 
 ### Password Protection
@@ -177,7 +180,8 @@ function MapboxMap ({ city, zoom = 8 }) {
             .then(data => {
             if (data.features.length > 0) {
                 const [lng, lat] = data.features[0].geometry.coordinates;
-                setCenter([lng, lat]);
+                setCenter([lng, lat]);![itineraryapp_diagram](https://github.com/user-attachments/assets/a360060c-edf0-4630-9ce0-08fff3c60f90)
+
             }
             })
             .catch(error => console.error('Error fetching city coordinates:', error));
@@ -211,10 +215,10 @@ export default MapboxMap;
 ```
 
 ## Future Improvement
-- `Add Facebook/Google Sign-In:` Enhance accessibility by integrating social media sign-in options.
-- `Map Search Box:` Implement a search feature on the map to easily locate popular spots.
-- `Create Itinerary/Add Activity Button:` Add functionality to create itineraries or add activities directly from the Destination Detail page.
-- `Replace Pulldown with Search Box:` Improve user experience on the Add Activity page by replacing the pulldown menu with a search box.
+- **Add Facebook/Google Sign-In:** Enhance accessibility by integrating social media sign-in options.
+- **Map Search Box:** Implement a search feature on the map to easily locate popular spots.
+- **Create Itinerary/Add Activity Button:** Add functionality to create itineraries or add activities directly from the Destination Detail page.
+- **Replace Pulldown with Search Box:** Improve user experience on the Add Activity page by replacing the pulldown menu with a search box.
 
 ## Resources
 
