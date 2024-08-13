@@ -11,11 +11,11 @@ const router = createBrowserRouter(routes);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <UserProvider>
-        <DestinationProvider>
-            <ItineraryProvider>
-                <RouterProvider router={router} />
-            </ItineraryProvider>
-        </DestinationProvider>
-    </UserProvider>
+        <UserProvider>
+            <DestinationProvider>
+                <ItineraryProvider>
+                    <RouterProvider router={router} />
+                </ItineraryProvider>
+            </DestinationProvider>
+        </UserProvider>
 );

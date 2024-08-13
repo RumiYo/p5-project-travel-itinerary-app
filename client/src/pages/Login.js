@@ -1,11 +1,9 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import LoginForm from "../components/Home/LoginForm";
 import SignUpForm from "../components/Home/SignUpForm";
 import homePhoto from "../components/Home/home_photo.jpg"
-import UserContext from "../UserContext";
 
-function Login(){
-    const { user, setUser } = useContext(UserContext);    
+function Login(){  
     const [ showLogin, setShowLogin ] =useState(true);
 
         return (

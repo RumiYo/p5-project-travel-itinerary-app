@@ -7,11 +7,10 @@ import UserContext from "../UserContext";
 
 function DestinationDetails(){
 
-    const { destination, setDestination } = useContext(DestinationContext);
+    const { destination, setDestination, popularSpots, setPopularSpots  } = useContext(DestinationContext);
     const params = useParams();
     const { user } = useContext(UserContext);    
     const [ error, setError] = useState("")
-    const [ popularSpots, setPopularSpots ] = useState([])
     const [ reviews, setReviews ] = useState([])
 
     useEffect(() => {

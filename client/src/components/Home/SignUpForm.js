@@ -25,29 +25,29 @@ function SignUpForm(){
 	});
 
     const formik = useFormik({
-      initialValues: {
-        first_name: "",
-        last_name: "",
-        username: "",
-        email: "",
-        password_hash: "",
+      	initialValues: {
+			first_name: "",
+			last_name: "",
+			username: "",
+			email: "",
+			password_hash: "",
       },
-      validationSchema: formSchema,
-      onSubmit: (values) => {
-        setIsLoading(true);
-        fetch("/signup", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(values),
-        })
+      	validationSchema: formSchema,
+      	onSubmit: (values) => {
+			setIsLoading(true);
+			fetch("/signup", {
+				method: "POST",
+				headers: {
+				"Content-Type": "application/json",
+				},
+				body: JSON.stringify(values),
+			})
         .then((r) => {
-          setIsLoading(false);
-          if (r.ok) {
-            r.json().then((user) => {
-				setUser(user)
-            	navigate("/"); 
+			setIsLoading(false);
+			if (r.ok) {
+				r.json().then((user) => {
+					setUser(user)
+					navigate("/"); 
             });
           } else {
             r.json().then((err) => setError(err.error));
