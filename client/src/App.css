@@ -1,185 +1,199 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,500);
 
 * {
-  font-family: 'Raleway', Arial, sans-serif;
+ 	 font-family: 'Raleway', Arial, sans-serif;
 }
 
 body {
-  margin-top: 50px;
-  align-items: center;  
-  background-color: #F8EDEB;
-  color: #944738;
+	margin-top: 50px;
+	align-items: center;  
+	background-color: #F8EDEB;
+	color: #944738;
 }
 
 main {
-  margin: 10%;
+ 	 margin: 10%;
 }
 
 .mainPages {
-  width: 80%;
-  margin:10%;
+  	width: 80%;
+  	margin:10%;
+}
+
+input[type="text"] {
+  	width: 50%;
+}
+textarea {
+ 	width: 60%;
+ 	height: 40px;
 }
  
 /* home */
 
 .home {
-  width: 80%;
-  margin: 10%;
-  align-items: center;  
-  text-align: center; 
+	width: 80%;
+	margin: 10%;
+	align-items: center;  
+	text-align: center; 
 }
 #login {
-  width: 80%;
-  margin: 5% 10%;
-  align-items: center;  
-  text-align: center; 
+	width: 80%;
+	margin: 5% 10%;
+	align-items: center;  
+	text-align: center; 
 }
 
 .buttons {
-  background-color: #FFB5A7; /* Green background */
-  border: none; /* Remove borders */
-  color: white; /* White text */
-  padding: 10px 20px; /* Some padding */
-  text-align: center; /* Center text */
-  text-decoration: none; /* Remove underline */
-  display: inline-block; /* Inline block display */
-  font-size: 16px; /* Text size */
-  margin: 4px 2px; /* Margins */
-  cursor: pointer; /* Pointer cursor on hover */
-  border-radius: 4px; /* Rounded corners */
-  transition: background-color 0.3s ease; /* Smooth transition */
+	background-color: #FFB5A7; 
+	border: none; 
+	color: white; 
+	padding: 10px 20px; 
+	text-align: center; /* Center text */
+	text-decoration: none; /* Remove underline */
+	display: inline-block; /* Inline block display */
+	font-size: 16px; 
+	margin: 4px 2px; 
+	cursor: pointer; /* Pointer cursor on hover */
+	border-radius: 4px; /* Rounded corners */
+	transition: background-color 0.3s ease; /* Smooth transition */
 }
     
 .buttons:hover {
-  background-color: #C8472D;
+  	background-color: #C8472D;	
 }
 
 .addItem{
-  position: fixed; 
-  margin: 20px 10px 50px 10px;
-  padding: 10px 40px;
-  position: float;
-  background-color: #F9DCC4;
-  width: 60%; /* Full width (cover the whole page) */
-  min-height: 60%; /* Full height (cover the whole page) */
-  max-height: 80%;
-  top: 16%;
-  left: 15%;
-  opacity: 0.95;
-  overflow: auto;
+	position: fixed; 
+	margin: 20px 10px 50px 10px;
+	padding: 10px 40px;
+	position: float;
+	background-color: #F9DCC4;
+	width: 60%; /* Full width (cover the whole page) */
+	min-height: 60%; /* Full height (cover the whole page) */
+	max-height: 80%;
+	top: 16%;
+	left: 15%;
+	opacity: 0.95;
+	overflow: auto;
 }
 
 .loginSignin {
-  margin: 20px 10px 50px 10px;
-  padding: 5px;
-  padding: 10px 40px;
-  position: float;
-  background-color: #F9DCC4;
+	margin: 20px 10px 50px 10px;
+	padding: 5px;
+	padding: 10px 40px;
+	position: float;
+	background-color: #F9DCC4;
 }
 
 /* destinationList */
 
-div.destinationList {
-  background-color: #FAE1DD;
-  align-items: center;
-  margin:4px;
-  text-align: center;
-  display: block;
-  float: left;
-  padding: 15px 0.5% 5px 0.5%;
-  width: 45%;
-  min-width: 110px;
-  height:450px;
-  overflow: auto;
+.destinationList {
+	background-color: #FAE1DD;
+	align-items: center;
+	margin:4px;
+	text-align: center;
+	display: block;
+	float: left;
+	padding: 15px 0.5% 5px 0.5%;
+	width: 45%;
+	min-width: 110px;
+	height:450px;
+	overflow: auto;
 }
   
 img.destinationListImage {
-  max-width: 90%;
-  max-height: 75%;    
-  align-items: center;
-  margin-top: 2px;
+	max-width: 90%;
+	max-height: 75%;    
+	align-items: center;
+	margin-top: 2px;
 }
 
 /* destinationDetail */
 #destinationDetail {
-  width: 80%;
-  margin: 10%;
-  align-items: center;  
-  text-align: center; 
+	width: 80%;
+	margin: 10%;
+	align-items: center;  
+	text-align: center; 
 }
 
 img#destinationDetailImage {
-  max-width: 70%;
-  max-height: 75%; 
-  align-items: center;  
+	max-width: 70%;
+	max-height: 75%; 
+	align-items: center;  
 }
 
 /* popularSpotsList under DestinationDetails */
 div.allPopularSpot {
-  display: block;
-  width: 100%;
-  margin-bottom: 5px;
-  overflow: hidden; /* Clear floats within this container */
+	display: block;
+	width: 100%;
+	overflow: hidden; /* Clear floats within this container */
 }
 
 div.popularSpotsList {
-  background-color: #EDDCD2;
-  align-items: center;
-  margin:4px;
-  text-align: center;
-  display: block;
-  padding: 15px 0.5% 5px 0.5%;
-  width: 45%;
-  min-width: 110px;
-  height:350px;
-  overflow: auto;
-  float: left;
+	background-color: #EDDCD2;
+	align-items: center;
+	margin:4px;
+	text-align: center;
+	display: block;
+	padding: 15px 0.5% 5px 0.5%;
+	width: 45%;
+	min-width: 110px;
+	height:350px;
+	overflow: auto;
+	float: left;
 }
 img.popularSpotsListImage {
-  max-width: 90%;
-  max-height: 75%;    
-  align-items: center;
-  margin-top: 2px;
+	max-width: 90%;
+	max-height: 65%;    
+	align-items: center;
+	margin-top: 2px;
 }
+
+.locationsHeading {
+	display: block;
+    margin-top: 50px; 
+    padding-top: 20px; 
+}
+
+.map-container {
+	height: 500px;
+	width: 100%;
+	align-items: center;
+}
+
+/* Itineraries */
 
 .allItineraries {
-  display: block;
-  width: 100%;
-  margin-bottom: 20px; 
+	display: block;
+	width: 100%;
+	margin-bottom: 20px; 
 }
 
-div.itinerariesList {
-  background-color: #FAE1DD;
-  align-items: center;
-  margin:4px;
-  text-align: left;
-  display: block;
-  padding: 15px 5%;
-  width: 80%;
-  min-width: 110px;
-  overflow: auto;
-  clear: both; 
+	div.itinerariesList {
+	background-color: #FAE1DD;
+	align-items: center;
+	margin:4px;
+	text-align: left;
+	display: block;
+	padding: 15px 5%;
+	width: 80%;
+	min-width: 110px;
+	overflow: auto;
+	clear: both; 
 }
+
+/* Itinerary Details */
 
 .activity {
-  background-color: #FAE1DD;
-  align-items: center;
-  margin:5px;
-  text-align: left;
-  display: block;
-  padding: 5px 5%;
-  width: 80%;
-  min-width: 110px;
-  overflow: auto;
-  clear: both; 
+	background-color: #FAE1DD;
+	align-items: center;
+	margin:5px;
+	text-align: left;
+	display: block;
+	padding: 5px 5%;
+	width: 80%;
+	min-width: 110px;
+	overflow: auto;
+	clear: both; 
 }
 
-
-
-input[type="text"] {
-  width: 50%;
-}
-textarea {
-  width: 60%;
-  height: 40px;
-}

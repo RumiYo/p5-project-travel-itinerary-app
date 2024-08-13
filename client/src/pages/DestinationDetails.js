@@ -4,6 +4,8 @@ import StarRating from '../components/Destinations/StarRating';
 import ReviewForm from "../components/Destinations/ReviewForm";
 import DestinationContext from "../DestinationContext";
 import UserContext from "../UserContext";
+import MapboxMap from "../components/Destinations/MapboxMap";
+
 
 function DestinationDetails(){
 
@@ -12,6 +14,7 @@ function DestinationDetails(){
     const { user } = useContext(UserContext);    
     const [ error, setError] = useState("")
     const [ reviews, setReviews ] = useState([])
+    const zoom = 12;
 
     useEffect(() => {
         fetch(`/destinations/${parseInt(params.id)}`)
@@ -69,6 +72,12 @@ function DestinationDetails(){
                         <small>{a.description}</small>
                     </div>
                 ))}
+
+                <br />
+                <div className="locationsHeading">
+                    <h3>Locations</h3>                
+                    <MapboxMap city={destination.city} zoom={zoom} />
+                </div>
             </div>
             <br />
             <Link id="closeDetails" to={`/destinations`}>Close details</Link> 

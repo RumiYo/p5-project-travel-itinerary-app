@@ -6,6 +6,7 @@ import routes from "./routes.js";
 import { ItineraryProvider } from "./ItineraryContext.js";
 import { DestinationProvider } from "./DestinationContext.js";
 import { UserProvider } from "./UserContext.js";
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 const router = createBrowserRouter(routes);
 

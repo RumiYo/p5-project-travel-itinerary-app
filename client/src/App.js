@@ -6,29 +6,29 @@ import Login from "./pages/Login";
 import UserContext from "./UserContext";
 
 function App() {
-  const { user, setUser } = useContext(UserContext);
+	const { user, setUser } = useContext(UserContext);
 
-  useEffect(() => {
-    fetch("/check_session")
-    .then((r)=> {
-      if(r.ok){
-        r.json().then((user) => setUser(user))
-      }
-    })
-  }, []);
+	useEffect(() => {
+		fetch("/check_session")
+		.then((r)=> {
+		if(r.ok){
+			r.json().then((user) => setUser(user))
+		}
+		})
+	}, []);
 
-  if (!user)
-    return <Login  />
+	if (!user)
+		return <Login  />
   
 
-  return (
-    <>
-      <header>
-        <NavBar  />
-      </header>
-      <Outlet  />
-    </>
-  )
+	return (
+		<>
+			<header>
+				<NavBar  />
+			</header>
+			<Outlet  />
+		</>
+	)
 }
 
 export default App;
