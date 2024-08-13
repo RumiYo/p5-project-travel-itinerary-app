@@ -25,9 +25,9 @@ For this project, you must:
 8. Implement useContext or Redux.
 
 ## My Full-Stack application
-This Travel Itinerary Application allow users to browser popular cities and touristic spots and plan their trip after the login. 
+This Travel Itinerary Application allows users to browse popular cities and tourist spots and plan their trip after logging in. 
 
-[![Watch the video](https://img.youtube.com/vi/y_ZHk9JSTLk/0.jpg)](https://youtu.be/y_ZHk9JSTLk)
+[![Watch the video](https://img.youtube.com/vi/YcI8zp8sVsE/0.jpg)](https://youtu.be/YcI8zp8sVsE)
 
 #### Backend:
 - Python and Flask for building the API
