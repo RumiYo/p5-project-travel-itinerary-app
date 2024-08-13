@@ -85,7 +85,42 @@ def seed_destinations():
             image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/Barcelona_image.jpg?raw=true",
             description="Istanbul, a city that straddles Europe and Asia across the Bosphorus Strait, is known for its historic sites such as the Hagia Sophia and the Blue Mosque. Istanbul offers a rich history and vibrant culture, blending Eastern and Western influences."
         ),
-        # ... Add more
+        Destination(
+            city="Moscow", 
+            country="Russia", 
+            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/Barcelona_image.jpg?raw=true",
+            description="Moscow, Russia’s capital, is known for its historical and cultural heritage. From the iconic Red Square to the Kremlin, Moscow offers a deep dive into Russian history with its architectural marvels and vibrant cultural scene."
+        ),
+        Destination(
+            city="Dubai", 
+            country="UAE", 
+            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/Barcelona_image.jpg?raw=true",
+            description="Dubai, a city in the UAE, is famous for its ultramodern architecture, luxury shopping, and vibrant nightlife scene. The cityscape is dominated by the Burj Khalifa, the world’s tallest building, and the artificial islands along its coast."
+        ),
+        Destination(
+            city="Amsterdam", 
+            country="Netherlands", 
+            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/Barcelona_image.jpg?raw=true",
+            description="Amsterdam, the Netherlands’ capital, is known for its artistic heritage, elaborate canal system, and narrow houses with gabled facades. The city is rich with museums and historic sites, offering a unique blend of culture and history."
+        ),
+        Destination(
+            city="Bangkok", 
+            country="Thailand", 
+            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/Barcelona_image.jpg?raw=true",
+            description="Bangkok, Thailand’s capital, is known for its vibrant street life and cultural landmarks. The city is a mix of modern skyscrapers, traditional temples, and a bustling night market scene."
+        ),
+        Destination(
+            city="Cairo", 
+            country="Egypt", 
+            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/Barcelona_image.jpg?raw=true",
+            description="Cairo, Egypt’s sprawling capital, is set on the Nile River and is famous for its proximity to the ancient pyramids of Giza. The city is a blend of history and modernity, offering a deep dive into Egyptian culture."
+        ),
+        Destination(
+            city="Los Angeles", 
+            country="USA", 
+            image_url="https://github.com/RumiYo/p5-project-travel-itinerary-app/blob/main/server/photos/Barcelona_image.jpg?raw=true",
+            description="Los Angeles, a sprawling Southern California city, is known for its Mediterranean climate, Hollywood entertainment industry, and diverse culture. It’s a hub of creative energy with attractions like the Hollywood Walk of Fame and Santa Monica Pier."
+        )
     ]
     db.session.add_all(destinations)
     db.session.commit()
@@ -128,33 +163,19 @@ def seed_itineraries():
             description="Attend a major tech conference in Tokyo."
         ),
         Itinerary(
-            name="Sydney Adventure", 
-            start_date=datetime(2024, 11, 1), 
-            end_date=datetime(2024, 11, 15), 
-            user_id=3,
-            description="Exploring Sydney and its surroundings."
+            name="Adventure in Rome", 
+            start_date=datetime(2024, 3, 15), 
+            end_date=datetime(2024, 3, 25), 
+            user_id=4,
+            description="Explore the historic sites of Rome."
         ),
         Itinerary(
-            name="Cape Town Exploration", 
-            start_date=datetime(2024, 8, 10), 
-            end_date=datetime(2024, 8, 20), 
-            user_id=1,
-            description="Discover Cape Town and its attractions."
+            name="Rio Carnival Experience", 
+            start_date=datetime(2024, 2, 20), 
+            end_date=datetime(2024, 2, 25), 
+            user_id=5,
+            description="Enjoy the vibrant festivities of Rio's Carnival."
         ),
-        Itinerary(
-            name="New Year in New York", 
-            start_date=datetime(2024, 12, 30), 
-            end_date=datetime(2025, 1, 5), 
-            user_id=2,
-            description="Ring in the New Year in New York City."
-        ),
-        Itinerary(
-            name="Barcelona Art Tour", 
-            start_date=datetime(2024, 6, 15), 
-            end_date=datetime(2024, 6, 25), 
-            user_id=3,
-            description="Touring Barcelona’s art and culture."
-        )
     ]
     db.session.add_all(itineraries)
     db.session.commit()
