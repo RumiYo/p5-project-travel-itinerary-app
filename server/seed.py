@@ -187,92 +187,92 @@ def seed_activities():
             date=datetime(2024, 6, 2), 
             description="Visit the iconic Eiffel Tower.", 
             itinerary_id=1, 
-            destination_id=1
+            destination_id=1  # Paris
         ),
         Activity(
             name="Central Park Walk", 
             date=datetime(2024, 7, 16), 
             description="Enjoy a walk in Central Park.", 
             itinerary_id=2, 
-            destination_id=2
+            destination_id=2  # New York
         ),
         Activity(
             name="Sainte-Chapelle Tour", 
             date=datetime(2024, 6, 4), 
             description="Take a guided tour of Sainte-Chapelle.", 
             itinerary_id=1, 
-            destination_id=1
+            destination_id=1  # Paris
         ),
         Activity(
             name="Park Güell Exploration", 
-            date=datetime(2024, 6, 8), 
+            date=datetime(2024, 5, 11), 
             description="Visit Park Güell and enjoy the park's architecture.", 
-            itinerary_id=1, 
-            destination_id=3
-        ),
-        Activity(
-            name="New York Museum Visit", 
-            date=datetime(2024, 7, 17), 
-            description="Visit a famous museum in New York City.", 
-            itinerary_id=2, 
-            destination_id=2
-        ),
-        Activity(
-            name="Barcelona Beach Day", 
-            date=datetime(2024, 5, 12), 
-            description="Relax at one of Barcelona’s beautiful beaches.", 
             itinerary_id=4, 
-            destination_id=3
+            destination_id=3  # Barcelona
         ),
         Activity(
             name="Tokyo Tower Visit", 
             date=datetime(2024, 9, 6), 
             description="Explore Tokyo Tower and its observation decks.", 
             itinerary_id=5, 
-            destination_id=4
+            destination_id=4  # Tokyo
         ),
         Activity(
-            name="Sydney Opera House Tour", 
-            date=datetime(2024, 11, 5), 
-            description="Tour the Sydney Opera House.", 
+            name="Colosseum Visit", 
+            date=datetime(2024, 3, 16), 
+            description="Explore the historic Colosseum.", 
             itinerary_id=6, 
-            destination_id=5
+            destination_id=7  # Rome
         ),
         Activity(
-            name="Table Mountain Hike", 
-            date=datetime(2024, 8, 15), 
-            description="Hike to the top of Table Mountain for panoramic views.", 
+            name="Christ the Redeemer Visit", 
+            date=datetime(2024, 2, 21), 
+            description="Visit the iconic Christ the Redeemer statue.", 
             itinerary_id=7, 
-            destination_id=6
+            destination_id=8  # Rio de Janeiro
         ),
         Activity(
-            name="Bondi Beach Surfing", 
-            date=datetime(2024, 11, 10), 
-            description="Enjoy surfing at Bondi Beach.", 
+            name="Louvre Museum Tour", 
+            date=datetime(2024, 6, 3), 
+            description="Explore the famous Louvre Museum.", 
+            itinerary_id=1, 
+            destination_id=1  # Paris
+        ),
+        Activity(
+            name="Times Square Experience", 
+            date=datetime(2024, 7, 18), 
+            description="Experience the hustle and bustle of Times Square.", 
+            itinerary_id=2, 
+            destination_id=2  # New York
+        ),
+        Activity(
+            name="Sagrada Família Tour", 
+            date=datetime(2024, 5, 12), 
+            description="Visit the iconic Sagrada Família.", 
+            itinerary_id=4, 
+            destination_id=3  # Barcelona
+        ),
+        Activity(
+            name="Shibuya Crossing Adventure", 
+            date=datetime(2024, 9, 7), 
+            description="Experience the bustling Shibuya Crossing.", 
+            itinerary_id=5, 
+            destination_id=4  # Tokyo
+        ),
+        Activity(
+            name="Roman Forum Exploration", 
+            date=datetime(2024, 3, 18), 
+            description="Explore the ancient Roman Forum.", 
             itinerary_id=6, 
-            destination_id=5
+            destination_id=7  # Rome
         ),
         Activity(
-            name="Cape Town City Tour", 
-            date=datetime(2024, 8, 12), 
-            description="Explore the city of Cape Town and its landmarks.", 
+            name="Sambadrome Parade", 
+            date=datetime(2024, 2, 22), 
+            description="Experience the vibrant Carnival parade at the Sambadrome.", 
             itinerary_id=7, 
-            destination_id=6
+            destination_id=8  # Rio de Janeiro
         ),
-        Activity(
-            name="New York Times Square", 
-            date=datetime(2024, 12, 31), 
-            description="Experience the hustle and bustle of Times Square during New Year's Eve.", 
-            itinerary_id=8, 
-            destination_id=2
-        ),
-        Activity(
-            name="Barcelona Art Museums", 
-            date=datetime(2024, 6, 20), 
-            description="Visit art museums such as Museu Picasso and Fundació Joan Miró.", 
-            itinerary_id=9, 
-            destination_id=3
-        )
     ]
     db.session.add_all(activities)
     db.session.commit()
